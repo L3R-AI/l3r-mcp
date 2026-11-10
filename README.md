@@ -14,6 +14,9 @@ Property, zoning, hazard and Census facts for any US address or parcel number:
 4. **Zoning:** the district from the official map, with its rules where held.
 5. **Hazards:** FEMA natural hazard ratings and nearby EPA cleanup sites.
 6. **Nearby:** water, roads, rail, airports, ports, power plants, renewables, EV charging and data centers.
+7. **Site screen:** flood zone, wetlands, protected areas, contamination, terrain and sewer for a lot.
+8. **Data center projects:** permits, zoning cases, dockets and air permits, each dated and linked.
+9. **Energy:** plant generation, state electricity prices and emissions, grid demand, fuel mix, interchange and coal shipments from EIA.
 
 Each answer comes as a short Markdown card plus the full JSON. Free, read-only, no account.
 
@@ -54,6 +57,9 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 - **Hazards:** "What are the wildfire and earthquake risks at the Getty Center in Los Angeles?"
 - **Nearby:** "What rail lines, airports and EV chargers are near Union Station in Kansas City?"
 - **Facility:** "Tell me about the Hoover Dam power plant."
+- **Site screen:** "Is 543 Union St in Brooklyn near a Superfund site, and how steep is 1000 Lombard St in San Francisco?"
+- **Data center projects:** "What data center projects have official records near Woodbridge, VA?"
+- **Energy:** "How much did Peach Bottom generate last year, and what's ERCOT's fuel mix right now?"
 
 ## Tools
 
@@ -65,6 +71,13 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`hazards_for_property`](docs/tools.md#hazards_for_property) | FEMA hazard ratings and EPA cleanup sites within a mile. |
 | [`nearby_for_property`](docs/tools.md#nearby_for_property) | Utilities, transport, energy, schools and EV charging nearby. |
 | [`lookup_facility`](docs/tools.md#lookup_facility) | A power plant, airport, port or hospital by name or ID. |
+| [`site_screen_for_property`](docs/tools.md#site_screen_for_property) | Flood, wetlands, protected areas, contamination, terrain and sewer for a lot. |
+| [`data_center_projects`](docs/tools.md#data_center_projects) | Data center projects from official records, each dated and linked. |
+| [`energy_plant_history`](docs/tools.md#energy-tools) | Generation and fuel history of a power plant. |
+| [`electricity_state_profile`](docs/tools.md#energy-tools) | Electricity prices, sales and emissions by state. |
+| [`grid_demand_mix`](docs/tools.md#energy-tools) | Hourly demand and fuel mix of a grid operator. |
+| [`grid_interchange`](docs/tools.md#energy-tools) | Power flows between grid operators. |
+| [`coal_shipments`](docs/tools.md#energy-tools) | Coal shipments from mines to plants. |
 
 All tools are read-only. Schemas and example responses are in the [tools reference](docs/tools.md).
 
@@ -75,7 +88,9 @@ All tools are read-only. Schemas and example responses are in the [tools referen
 - **Building facts:** county assessor data, NYC PLUTO, the SF Assessor and USA Structures.
 - **Building names:** official names from NYC Landmarks, the National Register and the GSA.
 - **Zoning:** official city and county maps, with district rules for some cities.
-- **Hazards:** FEMA ratings by Census tract, not parcel. Flood zones coming.
+- **Hazards:** FEMA ratings by Census tract, not parcel.
+- **Site screen:** wetlands, protected areas, EPA sites and terrain nationwide; flood zones as FEMA's state files load.
+- **Data center projects:** official records only.
 - **Not returned:** owners, values, sales or parcel outlines.
 - **Rate limit:** one address per call, 60 calls an hour.
 
@@ -104,6 +119,9 @@ Full credits are in each answer's `attribution` field.
 - **Zoning:** official city and county zoning maps and codes, credited to each publisher.
 - **Hazards:** FEMA National Risk Index and EPA cleanup sites.
 - **Nearby and facilities:** EIA, EPA, FAA, NCES and CMS records, and the DOE Alternative Fuels Data Center (NLR data; no endorsement implied).
+- **Site screen:** FEMA National Flood Hazard Layer, USFWS National Wetlands Inventory, USGS PAD-US, EPA FRS and RCRA, USGS 3DEP.
+- **Data center projects:** county, state, utility commission and RTO records, each linked.
+- **Energy:** U.S. Energy Information Administration (EIA-923, EIA-930, retail sales, emissions, coal receipts).
 
 </details>
 

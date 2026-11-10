@@ -1,6 +1,6 @@
 # Tools reference
 
-The server exposes six tools. All are read-only and idempotent, and each takes one input per call: one address, one
+The server exposes thirteen tools. All are read-only and idempotent, and each takes one input per call: one address, one
 identifier, one area, one facility. Each result has two parts: a short Markdown card as the text content block, ready to
 show as is, and the full answer as JSON in `structuredContent`. No tool calls a model.
 
@@ -12,6 +12,13 @@ show as is, and the full answer as JSON in `structuredContent`. No tool calls a 
 | [`hazards_for_property`](#hazards_for_property) | Hazards for a US property | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`nearby_for_property`](#nearby_for_property) | Infrastructure, utilities and energy around a US property | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`lookup_facility`](#lookup_facility) | Look up a US facility (plant, data center, airport, port, water system and more) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`site_screen_for_property`](#site_screen_for_property) | Site screen for a US property (flood, wetlands, protected areas, contamination, terrain, sewer) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`data_center_projects`](#data_center_projects) | Data center projects from official records (permits, zoning, dockets, air permits) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`energy_plant_history`](#energy_plant_history) | Generation and fuel history of a US power plant (EIA-923) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`electricity_state_profile`](#electricity_state_profile) | Electricity prices, sales and emissions by state | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`grid_demand_mix`](#grid_demand_mix) | Hourly demand and fuel mix of a balancing authority (EIA-930) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`grid_interchange`](#grid_interchange) | Power flows between balancing authorities (EIA-930) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`coal_shipments`](#coal_shipments) | Coal shipments from mines to plants (EIA) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 
 Every example below is real output from the live server at `https://mcp.l3r.io/mcp`, captured on 8 November 2026. Each
 passed the server's own answer gates: a key allowlist at every depth, a guard against owner, holder and contact fields,
@@ -25,6 +32,9 @@ and a size cap. Nothing was edited by hand.
 - [`hazards_for_property`](#hazards_for_property)
 - [`nearby_for_property`](#nearby_for_property)
 - [`lookup_facility`](#lookup_facility)
+- [`site_screen_for_property`](#site_screen_for_property)
+- [`data_center_projects`](#data_center_projects)
+- [Energy tools](#energy-tools)
 - [Errors and refusals](#errors-and-refusals)
 
 ---
@@ -1473,6 +1483,132 @@ From Athena by L3R. Sources: U.S. Energy Information Administration, Form EIA-86
 
 Rights, permits or ownership questions? Ask Athena, L3R's assistant → https://3drights.com
 ```
+
+## `site_screen_for_property`
+
+A development site screen for one property, from federal open data. Shares are of the whole parcel where L3R has
+screened its outline. Otherwise each layer is read at the property's point, and the card says which.
+
+- **Flood:** FEMA flood zones with the share of the lot in each, whether it is a Special Flood Hazard Area, and the FIRM
+  panel with its effective date.
+- **Wetlands:** National Wetlands Inventory wetlands, the share of the lot and the type.
+- **Protected areas:** PAD-US areas on the lot or within 0.5 mile, with GAP status and manager type. Names only for
+  public agencies.
+- **Contamination:** EPA Superfund (NPL and other SEMS sites), ACRES brownfields, RCRA corrective action areas, federal
+  facilities and Recovery Act leaking tanks within 1 mile, with distances and EPA links.
+- **Terrain:** USGS 3DEP elevation (min, max, mean) and the share of the lot by slope band: 0–5, 5–15, 15–30, over 30%.
+- **Sewer:** an open sewer service-area layer where one exists. Otherwise it says so and names the nearest wastewater
+  plant.
+
+### Input
+
+| `city` | string, at most 200 characters | no | The city, for an address that does not name one. |
+| `county` | string, at most 200 characters | no | County name, for example `Travis`. Use it with a parcel number. |
+| `property_key` | string, at most 200 characters | no | An L3R `PROP-` key from `lookup_property`. |
+| `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
+| `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
+| `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
+Give exactly one of `property_key` or `query`.
+
+### Statuses
+
+| Status | Meaning |
+|---|---|
+| `READ` | The screen is returned. |
+| `PARTIAL` | Some layers are not held for this place yet, for example the flood map. |
+| `NOT_HELD` | The layers are not loaded right now. |
+| `NO_POINT` | The property was found but no public point is held for it. |
+| `AMBIGUOUS` | More than one property fits. Add detail. |
+| `UNMATCHED` | Nothing found. |
+
+### Response fields
+
+- `site.basis`: `LOT` (shares of the parcel, with `lot_acres`) or `POINT`.
+- `site.flood`: `zones[]` (`zone`, `subtype`, `sfha`, `share_pct`), `sfha_share_pct` and `panel` (`firm_panel`, `effective_date`).
+- `site.wetlands`: `share_pct` (or `inside` at a point) and `types[]` with the NWI `code`, `wetland_type` and `share_pct`.
+- `site.protected_areas[]`: `name` (public managers only), `manager_type`, `gap_status`, `designation`, `share_pct` or a distance.
+- `site.contamination`: `within_miles`, `counts` by program and `sites[]` with `program`, distance and EPA `url`.
+- `site.terrain`: `elevation_ft` (`min`, `max`, `mean`) and `slope_bands_pct[]` (`band`, `share_pct`).
+- `site.sewer`: a `service_area`, or a `note` and the `nearest_wastewater_plant`.
+- `not_held[]`, `disclaimer`, `sources[]` and `attribution`.
+
+### Limits
+
+Screening only: not a flood zone determination, wetland delineation, Phase I environmental site assessment or survey.
+Not being in a mapped flood zone or wetland never means no flood or wetland. Flood zones are added state by state as
+FEMA's flood map files are loaded. No parcel outlines, owners, values or person names.
+
+---
+
+## `data_center_projects`
+
+US data center projects, shown only with evidence from official records, each dated and linked: building or grading
+permits, zoning or rezoning cases, site plans and special use permits, utility large-load filings and dockets, state
+incentive or tax abatement approvals, environmental, air and generator permits, EIS notices, and interconnection or
+large-load study lists naming the site. News articles, press releases and company blogs never count and never set a
+status.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `project_id` | string, at most 200 characters | no | A `FACILITY-` project ID. |
+| `city` | string, at most 200 characters | no | The city, for an address that does not name one. |
+| `county` | string, at most 200 characters | no | County name, for example `Travis`. Use it with a parcel number. |
+| `property_key` | string, at most 200 characters | no | Or an L3R `PROP-` key: the projects near it. |
+| `query` | string, at most 200 characters | no | Or one street address or parcel identifier: the projects near it. |
+| `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
+| `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
+Give `project_id`, or one of `property_key` or `query` for the projects within 15 miles (up to 3), and those placed only
+by the property's county.
+
+### Statuses
+
+| Status | Meaning |
+|---|---|
+| `READ` | The project, or the projects near the property, returned. |
+| `NOT_HELD` | The project list is not loaded right now. |
+| `AMBIGUOUS` | More than one property fits. Add detail. |
+| `UNMATCHED` | No project with that ID, or the address was not found. |
+
+### Response fields
+
+- `project` (or `projects[]`): `project_id`, `name`, `state`, `county`, `location_precision` (a point, or `county`), and
+  a distance near a property.
+- `status`, `status_date` and `status_record`: the rung of the latest official record (`proposed`, `zoning approved`,
+  `permitted`, `under construction`, `energised`, or `denied or withdrawn`), and `history[]` of each rung with its
+  record.
+- `evidence[]`: `record_type`, `date`, `agency`, `url`, `record_id` and whether L3R holds a copy.
+- `mw` and `sq_ft`: only where an official record states them, with the record.
+- `companies[]`: the developer or applicant as the record names it (`name_in_record`, `role`), a business and never a
+  person, with its `parent` only where an SEC or state filing shows it (`parent_basis`, `parent_url`).
+
+### Limits
+
+Official records only, so many announced projects are not listed. A project not listed here may still exist. No
+owners, values or person names.
+
+---
+
+## Energy tools
+
+Five tools served from a daily index of the U.S. Energy Information Administration's public data (EIA API v2, public
+domain; credit EIA). Each card names the period of the data it shows.
+
+| Tool | Input | What it returns |
+|---|---|---|
+| `energy_plant_history` | `plant_id` (`EIA 3470`), or `property_key` / `query` with `limit` 1–3 nearest plants | EIA-923 net generation and fuel use: 24 months and 6 years, fuel mix, MW, balancing authority. |
+| `electricity_state_profile` | `state` (`TX`, `US`), or a property | Retail price by sector, sales and customers, and CO2 from electricity by fuel. |
+| `grid_demand_mix` | `ba` code (`ERCO`, `PJM`), or a property | EIA-930 demand, forecast, generation and interchange, 48 hours hourly, a 7-day summary and generation by fuel. |
+| `grid_interchange` | `ba`, optional `neighbor` | Flows to each neighbouring balancing authority: the newest hour and the last 24 hours. |
+| `coal_shipments` | `plant_id`, or `mine_id` (MSHA) | Three years of coal receipts, the newest year's flows by rank, transport and contract. |
+
+For a property, the balancing authority comes from the nearest EIA-860 plant that names one; the property's own utility
+is not mapped. Mines are shown by MSHA ID and place. No owners or person names.
+
+---
 
 ## Errors and refusals
 
