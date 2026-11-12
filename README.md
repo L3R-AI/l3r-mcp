@@ -89,6 +89,8 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`grid_interchange`](docs/tools.md#grid_interchange) | Hourly electricity flows between balancing authorities. |
 | [`coal_shipments`](docs/tools.md#coal_shipments) | Coal received at a plant by mine, or shipped from a mine. |
 | [`lookup_facility`](docs/tools.md#lookup_facility) | A power plant, airport, port or hospital by name or ID. |
+| [`coverage_for_county`](docs/tools.md#coverage_for_county) | What L3R holds for a county: parcels, zoning, rules, flood, wells and data center projects. |
+| [`list_reference_data`](docs/tools.md#list_reference_data) | Ranked lists of strategic seaports, FEMA risk tracts or power plants. |
 
 All tools are read-only. Schemas and example responses are in the [tools reference](docs/tools.md).
 

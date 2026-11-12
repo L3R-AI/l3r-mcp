@@ -1,7 +1,7 @@
 # Tools reference
 
 All tools are read-only and idempotent, and each takes one input per call: one address, one
-identifier, one area, one facility. Each result has two parts: a short Markdown card as the text content block, ready to
+identifier, one area, one facility, or one capped list of public reference data. Every property tool also takes a point (`lat` and `lon`): a point inside a parcel reads that parcel, and a point with no parcel reads the location itself. Each result has two parts: a short Markdown card as the text content block, ready to
 show as is, and the full answer as JSON in `structuredContent`. No tool calls a model.
 
 | Tool | Title | Annotations |
@@ -21,8 +21,10 @@ show as is, and the full answer as JSON in `structuredContent`. No tool calls a 
 | [`grid_interchange`](#grid_interchange) | Electricity interchange between balancing authorities (EIA-930) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`coal_shipments`](#coal_shipments) | Coal shipments from mines to power plants (EIA) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`lookup_facility`](#lookup_facility) | Look up a US facility (plant, data center, airport, port, water system and more) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`coverage_for_county`](#coverage_for_county) | What L3R holds for a US county | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`list_reference_data`](#list_reference_data) | Ranked lists from public reference data (ports, FEMA risk tracts, power plants) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 
-Every example below is real output from the live server at `https://mcp.l3r.io/mcp`, captured on 8 November 2026. The examples for `districts_for_property`, `energy_service_for_property` and `site_screen_for_property` were captured on 11 November 2026, as were those for `data_center_projects`, `energy_plant_history`, `electricity_state_profile`, `grid_demand_mix`, `grid_interchange` and `coal_shipments`. Each
+Every example below is real output from the live server at `https://mcp.l3r.io/mcp`, captured on 8 November 2026. The examples for `districts_for_property`, `energy_service_for_property` and `site_screen_for_property` were captured on 11 November 2026, as were those for `data_center_projects`, `energy_plant_history`, `electricity_state_profile`, `grid_demand_mix`, `grid_interchange` and `coal_shipments`. The examples for `coverage_for_county` and `list_reference_data` were captured on 12 November 2026. Each
 passed the server's own answer gates: a key allowlist at every depth, a guard against owner, holder and contact fields,
 and a size cap. Nothing was edited by hand.
 
@@ -43,6 +45,8 @@ and a size cap. Nothing was edited by hand.
 - [`grid_interchange`](#grid_interchange)
 - [`coal_shipments`](#coal_shipments)
 - [`lookup_facility`](#lookup_facility)
+- [`coverage_for_county`](#coverage_for_county)
+- [`list_reference_data`](#list_reference_data)
 - [Errors and refusals](#errors-and-refusals)
 
 ---
@@ -3444,6 +3448,278 @@ Power plant (EIA 3470), Fort Bend County, TX
 From Athena by L3R. Sources: U.S. Energy Information Administration, Form EIA-860 2025.
 
 Rights, permits or ownership questions? Ask Athena, L3R's assistant → https://3drights.com
+```
+## `coverage_for_county`
+
+What L3R holds for one US county, in one call: parcels (the count of keyed properties with a location), base zoning (the official layers shown and how many properties have a district shown), the cities whose zoning rules are quoted, zoning overlays held, data center projects from official records, FEMA's flood map (NFHL), recorded water wells and lots screened for the site screen. Counts and layer names only: no property is listed.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `county` | string, at most 200 characters | no | County name, for example `Travis`. Use it with `state`. |
+| `state` | string, at most 200 characters | no | Two-letter state, for example `TX`. Use it with `county`. |
+| `fips` | string, at most 200 characters | no | Or the 5-digit county FIPS code, for example `48453`. |
+Give `county` with `state`, or `fips`.
+
+### Statuses
+
+| Status | Meaning |
+|---|---|
+| `READ` | Coverage returned. |
+| `NOT_FOUND` | No US county matches. |
+
+### Response fields
+
+- `county_fips`, `county` and `state`.
+- `coverage`: `parcels`, `zoning` (with `layers[]` and `properties_shown`), `rules`, `overlays`, `data_centers`, `flood`, `wells` and `site_lots`, each with `held` and a count where one applies.
+- `attribution`.
+
+### Limits
+
+"Not held" means L3R does not hold it yet, never that it does not exist. Every county also has FEMA National Risk Index tract ratings, Census figures and nearby infrastructure.
+
+### Examples
+
+**A county by name**
+
+Call:
+
+```json
+{"name": "coverage_for_county", "arguments": {"county": "Loudoun", "state": "VA"}}
+```
+
+Card:
+
+```markdown
+### Coverage: Loudoun County, Virginia
+_County FIPS 51107._
+
+- **Parcels:** 132,520 properties keyed, with a location point
+- **Base zoning:** shown for 132,521 properties (County Of Loudoun zoning map; Loudoun County Unincorporated Area zoning map)
+- **District rules:** none quoted for a city here yet
+- **Zoning overlays:** none held
+- **Data center projects (official records):** 20
+- **FEMA flood map (NFHL):** not held yet
+- **Recorded water wells:** not held for this state
+- **Site screen lots:** screened (shares of each lot)
+
+_Not held means L3R does not hold it yet, never that it does not exist. Every county also has FEMA National Risk Index tract ratings, Census figures and nearby infrastructure._
+
+From Athena by L3R.
+
+More: 3drights.com
+```
+
+Structured content:
+
+```json
+{
+ "query_kind": "COUNTY",
+ "attribution": [
+  "From Athena by L3R (l3r.io)"
+ ],
+ "athena_url": null,
+ "status": "READ",
+ "county_fips": "51107",
+ "county": "Loudoun County, Virginia",
+ "state": "VA",
+ "coverage": {
+  "parcels": {
+   "held": true,
+   "count": 132520
+  },
+  "zoning": {
+   "held": true,
+   "properties_shown": 132521,
+   "layers": [
+    {
+     "name": "County Of Loudoun zoning map"
+    },
+    {
+     "name": "Loudoun County Unincorporated Area zoning map"
+    }
+   ],
+   "count": 2
+  },
+  "rules": {
+   "held": false
+  },
+  "overlays": {
+   "held": false
+  },
+  "data_centers": {
+   "held": true,
+   "count": 20
+  },
+  "flood": {
+   "held": false
+  },
+  "wells": {
+   "held": false
+  },
+  "site_lots": {
+   "held": true
+  }
+ },
+ "terms_url": "https://mcp.l3r.io/terms",
+ "docs_url": "https://l3r.io/mcp"
+}
+```
+
+**A county by FIPS code**
+
+Call:
+
+```json
+{"name": "coverage_for_county", "arguments": {"fips": "48245"}}
+```
+
+Card:
+
+```markdown
+### Coverage: Jefferson County, Texas
+_County FIPS 48245._
+
+- **Parcels:** 122,071 properties keyed, with a location point
+- **Base zoning:** shown for 81,994 properties (City of Beaumont, TX own ArcGIS Server gis.beaumonttexas.gov zoning map; City of Port Arthur zoning map)
+- **District rules:** none quoted for a city here yet
+- **Zoning overlays:** none held
+- **Data center projects (official records):** 0
+- **FEMA flood map (NFHL):** not held yet
+- **Recorded water wells:** not held for this state
+- **Site screen lots:** screened (shares of each lot)
+
+_Not held means L3R does not hold it yet, never that it does not exist. Every county also has FEMA National Risk Index tract ratings, Census figures and nearby infrastructure._
+
+From Athena by L3R.
+
+More: 3drights.com
+```
+
+## `list_reference_data`
+
+A short ranked list from public reference data. No property, parcel or owner is ever listed. Three lists:
+
+- `strategic_seaports`: the commercial strategic seaports in the U.S. DOT BTS National Transportation Atlas, by state or nationally.
+- `nri_tracts`: Census tracts ranked by a FEMA National Risk Index rating, the overall risk or one hazard, by state or nationally. The index gives ratings, not scores, so ties are broken by the expected annual loss rating and then by how many hazards rate high.
+- `power_plants`: operating plants from EIA's generator inventory by state, optionally one fuel, largest first.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `list` | string, at most 200 characters | yes | `strategic_seaports`, `nri_tracts` or `power_plants`. |
+| `state` | string, at most 200 characters | no | Two-letter state. Needed for `power_plants`. |
+| `hazard` | string, at most 200 characters | no | `nri_tracts`: `overall` (the default) or a hazard, for example `wildfire`, `coastal_flooding`, `inland_flooding`, `earthquake`, `hurricane`, `tornado` or `heat_wave`. |
+| `fuel` | string, at most 200 characters | no | `power_plants`: `solar`, `wind`, `hydro`, `nuclear`, `gas`, `coal`, `oil`, `biomass`, `geothermal` or `storage`. |
+| `limit` | integer, 1 to 50 | no | Rows to return (default 10). |
+
+### Statuses
+
+| Status | Meaning |
+|---|---|
+| `READ` | List returned, with the true count beside the capped list. |
+| `NOT_HELD` | No data held for this list. |
+
+### Response fields
+
+- `list`, `state`, and `hazard` or `fuel` as given.
+- `items[]`, each with `rank` and the list's own fields (for power plants: `plant_id`, `name`, `county`, `fuel`, `mw` and `operator`).
+- `total`, `limit`, `as_of`, `source` and `attribution`.
+
+### Limits
+
+Lists come only from public reference layers credited to their federal publisher. Parcels, properties and owners are never listed: property data stays one address per call.
+
+### Examples
+
+**Strategic seaports in a state**
+
+Call:
+
+```json
+{"name": "list_reference_data", "arguments": {"list": "strategic_seaports", "state": "CA"}}
+```
+
+Card:
+
+```markdown
+### Commercial strategic seaports: CA
+_3 listed (BTS National Transportation Atlas)._
+
+1. Long Beach, CA
+2. Oakland, CA
+3. San Diego, CA
+
+From Athena by L3R. Sources: BTS National Transportation Atlas (U.S. Government work).
+
+More: 3drights.com
+```
+
+**Power plants by fuel**
+
+Call:
+
+```json
+{"name": "list_reference_data", "arguments": {"list": "power_plants", "state": "TX", "fuel": "nuclear"}}
+```
+
+Card:
+
+```markdown
+### Operating power plants (nuclear): TX
+_2, largest first; EIA generator inventory 2026-08._
+
+1. South Texas Project (EIA 6251): nuclear, 2,709 MW, Matagorda County, operated by STP Nuclear Operating Co
+2. Comanche Peak (EIA 6145): nuclear, 2,430 MW, Somervell County, operated by Luminant Generation Company LLC
+
+From Athena by L3R. Sources: U.S. Energy Information Administration (public domain).
+
+More: 3drights.com
+```
+
+Structured content:
+
+```json
+{
+ "status": "READ",
+ "list": "power_plants",
+ "state": "TX",
+ "fuel": "nuclear",
+ "items": [
+  {
+   "rank": 1,
+   "plant_id": "EIA 6251",
+   "name": "South Texas Project",
+   "county": "Matagorda",
+   "fuel": "Nuclear",
+   "mw": 2708.6,
+   "operator": "STP Nuclear Operating Co"
+  },
+  {
+   "rank": 2,
+   "plant_id": "EIA 6145",
+   "name": "Comanche Peak",
+   "county": "Somervell",
+   "fuel": "Nuclear",
+   "mw": 2430.0,
+   "operator": "Luminant Generation Company LLC"
+  }
+ ],
+ "total": 2,
+ "limit": 10,
+ "as_of": "2026-08",
+ "source": "U.S. Energy Information Administration (EIA), EIA-860M generator inventory (public domain)",
+ "attribution": [
+  "From Athena by L3R (l3r.io)",
+  "U.S. Energy Information Administration (EIA), EIA-860M generator inventory (public domain)"
+ ],
+ "query_kind": "LIST",
+ "athena_url": null,
+ "terms_url": "https://mcp.l3r.io/terms",
+ "docs_url": "https://l3r.io/mcp"
+}
 ```
 
 ## Errors and refusals
