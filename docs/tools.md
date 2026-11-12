@@ -1385,6 +1385,7 @@ The districts a property or point sits in: its U.S. House district, its state se
 | `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give `property_key`, `query`, or `lat` with `lon`. Not a property and a point together.
 
 ### Statuses
@@ -1560,6 +1561,7 @@ What energy a property connects to, one layer at a time. Each layer has its sour
 | `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give exactly one of `property_key` or `query`.
 
 ### Statuses
@@ -1732,6 +1734,7 @@ A development site screen for one property, from federal open data. It covers fl
 | `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give exactly one of `property_key` or `query`.
 
 ### Statuses
@@ -1974,6 +1977,7 @@ US data center projects backed by official records only: building or grading per
 | `query` | string, at most 200 characters | no | Or one street address or parcel identifier: the projects near it. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give `project_id`, or `property_key` or `query` for the projects within 15 miles (up to 3).
 
 ### Statuses
@@ -2140,6 +2144,7 @@ Monthly and annual net generation (MWh) and fuel consumed (MMBtu) for one US pow
 | `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give `plant_id`, or `property_key` or `query` for the nearest operating plants.
 
 ### Statuses
@@ -2416,6 +2421,7 @@ Electricity in one US state, or the US: average retail price by sector with the 
 | `query` | string, at most 200 characters | no | Or one street address or parcel identifier: its state. |
 | `state` | string | no | One state: two letters (`TX`), its name, or `US`. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give `state`, or `property_key` or `query`.
 
 ### Statuses
@@ -2771,6 +2777,7 @@ Hourly demand, day-ahead demand forecast, net generation and interchange for one
 | `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give `ba`, or `property_key` or `query`. With a property, the balancing authority is taken from the nearest EIA-860 plant that names one. This is an approximation, and the card says so.
 
 ### Statuses
@@ -2833,6 +2840,7 @@ Hourly net interchange between one balancing authority and each neighbour, from 
 | `query` | string, at most 200 characters | no | Or one street address or one parcel identifier. |
 | `state` | string, at most 200 characters | no | Two-letter state. Needed for a parcel number. |
 | `zip` | string, at most 200 characters | no | Five-digit ZIP code. |
+
 Give `ba`, or `property_key` or `query`, and optionally `neighbor`.
 
 ### Statuses
@@ -3130,6 +3138,7 @@ Coal received at one US power plant by mine, or shipped from one mine to plants,
 |---|---|---|---|
 | `mine_id` | string | no | Or one MSHA mine ID, for example `MSHA 4800732`. |
 | `plant_id` | string | no | One EIA plant ID, for example `EIA 3470`. |
+
 Give exactly one of `plant_id` or `mine_id`.
 
 ### Statuses
@@ -3460,6 +3469,7 @@ What L3R holds for one US county, in one call: parcels (the count of keyed prope
 | `county` | string, at most 200 characters | no | County name, for example `Travis`. Use it with `state`. |
 | `state` | string, at most 200 characters | no | Two-letter state, for example `TX`. Use it with `county`. |
 | `fips` | string, at most 200 characters | no | Or the 5-digit county FIPS code, for example `48453`. |
+
 Give `county` with `state`, or `fips`.
 
 ### Statuses
