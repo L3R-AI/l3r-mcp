@@ -1,0 +1,51 @@
+Copyright (c) 2026 L3R, Inc.
+
+This repository is dual-licensed.
+
+1. Documentation
+
+   Everything in this repository except the example code (see 2), the L3R name and icons (see 3) and the demo
+   recording (see 3), including README.md and docs/, is licensed under the Creative Commons
+   Attribution 4.0 International License (CC BY 4.0). To view a copy of this licence, visit
+   https://creativecommons.org/licenses/by/4.0/legalcode
+
+2. Example code
+
+   The code in examples/ is licensed under the MIT License:
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+   documentation files (the "Software"), to deal in the Software without restriction, including without
+   limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+   Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+   conditions:
+
+   The above copyright notice and this permission notice shall be included in all copies or substantial portions
+   of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+   TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+   THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+   CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+   DEALINGS IN THE SOFTWARE.
+
+3. Trademarks and the demo recording
+
+   The L3R name, logo and icons (assets/icon-512.png, assets/icon-rounded.png, assets/icon-white.png) are
+   trademarks of L3R, Inc. and are not licensed under either licence above.
+
+   You may use them unchanged to refer to L3R and its MCP server, for example in a list of connectors or in an
+   article about it. You may not:
+
+   - change them, or combine them with another name or logo;
+   - use them as the name or logo of your own product, service or company;
+   - use them in a way that suggests L3R sponsors, endorses or is affiliated with you or your product.
+
+   The demo recording (assets/demo.gif) shows third-party software and is not licensed under either licence
+   above. It may be shown only as part of this repository.
+
+   Questions about using the name or icons: contact@l3r.io.
+
+4. Data
+
+   This licence covers this repository only. Results returned by the L3R MCP server are governed by its terms of
+   use (https://mcp.l3r.io/terms) and by the attribution each result carries.
