@@ -96,9 +96,13 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 - **Grid demand:** "What is ERCOT's demand right now, and what is the fuel mix?"
 - **Grid flows:** "How much power does the California ISO import from its neighbours?"
 - **Facility:** "Tell me about the Hoover Dam power plant."
-- **City records:** where cities publish them; see the list below.
+- **Nuclear plant:** "How much power did Comanche Peak generate over the last year?"
+- **City records:** "What zoning hearings are coming up in Dallas, and who decides them?"
 - **Council:** "How has Supervisor Connie Chan voted on budget items?"
 - **Affordable:** "Who are the biggest affordable housing developers in San Francisco?"
+- **Texas affordable:** "How many housing tax credit awards has Houston had in recent years?"
+- **Town budget:** "What does Highland Park, TX spend on police?"
+- **Capital projects:** "What capital projects is University Park, TX funding this year?"
 - **Projects:** "What's in review at 3908 Menchaca Rd in Austin?"
 - **Development:** "What's been built around Rainey Street in Austin, and how tall?"
 - **Public housing:** "What repairs does NYCHA plan at Red Hook Houses?"
@@ -128,7 +132,7 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`lookup_facility`](docs/tools.md#lookup_facility) | A power plant, airport, port or hospital by name or ID. |
 | [`coverage_for_county`](docs/tools.md#coverage_for_county) | What L3R holds for a county. |
 | [`list_reference_data`](docs/tools.md#list_reference_data) | Ranked lists of seaports, risk tracts or power plants. |
-| [`city_hall_for_place`](docs/tools.md#city_hall_for_place) | Hearings, decisions and boards for a city. |
+| [`city_hall_for_place`](docs/tools.md#city_hall_for_place) | Hearings, decisions, boards and town budgets for a city. |
 | [`projects_for_property`](docs/tools.md#projects_for_property) | Planning cases, permits and development specs at an address or in a named area. |
 | [`municipal_for_property`](docs/tools.md#municipal_for_property) | Who governs a property, who represents it, and who decides. |
 | [`affordable_for_place`](docs/tools.md#affordable_for_place) | Affordable housing for a city: sponsors, funding and pipeline. |
@@ -150,7 +154,7 @@ This is the public slice of L3R. Facts appear only where publishers allow, so a 
 - **Districts:** names and numbers only. Election offices decide.
 - **Data centers:** official records only, such as permits and zoning cases. News never counts.
 - **Grid:** hourly figures, refreshed daily, not live.
-- **City records:** where cities publish them. Hearings and council records in Austin, Chicago, Dallas, Houston, NYC, SF and Highland Park, TX; projects in review in SF, NYC, Austin, Chicago and Dallas; development specs in Austin and NYC; parks projects in NYC, SF, Austin, Dallas, Chicago and Seattle; affordable housing in SF, Austin, NYC, LA and Chicago; public housing (NYCHA) in NYC.
+- **City records:** where cities publish them; see the list below.
 - **Not returned:** owners, values or sales. Parcel outlines appear only inside map images.
 - **Rate limit:** one address per call; 60 calls an hour and 300 a day from each network address.
 
@@ -206,7 +210,7 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 | Projects in review | San Francisco, NYC, Austin, Chicago, Dallas |
 | Development specs | Austin, NYC |
 | Parks projects | NYC, San Francisco, Austin, Dallas, Chicago, Seattle |
-| Affordable housing | San Francisco, Austin, NYC, Los Angeles, Chicago; Texas and California statewide |
+| Affordable housing | San Francisco, Austin, NYC, Los Angeles, Chicago, Texas cities; California statewide |
 | Public housing | NYC (NYCHA) |
 
 </details>
