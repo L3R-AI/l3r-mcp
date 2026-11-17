@@ -23,7 +23,7 @@
 | **Nearby** | Water, roads, rail, airports, ports, power plants, EV charging, data centers |
 | **Energy** | Grid and utilities, plant output, coal deliveries, state prices, hourly demand and flows |
 | **Data centers** | Projects backed by official records |
-| **City records** | Permits, code cases, council votes, landmark history, hearings, affordable housing |
+| **City records** | Permits, code cases, council votes, landmark history, hearings, development projects, parks projects, affordable and public housing |
 
 Each answer is a short Markdown card plus the full JSON.
 
@@ -100,6 +100,8 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 - **Council:** "How has Supervisor Connie Chan voted on budget items?"
 - **Affordable:** "Who are the biggest affordable housing developers in San Francisco?"
 - **Projects:** "What's in review at 3908 Menchaca Rd in Austin?"
+- **Development:** "What's been built around Rainey Street in Austin, and how tall?"
+- **Public housing:** "What repairs does NYCHA plan at Red Hook Houses?"
 
 </details>
 
@@ -127,7 +129,7 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`coverage_for_county`](docs/tools.md#coverage_for_county) | What L3R holds for a county. |
 | [`list_reference_data`](docs/tools.md#list_reference_data) | Ranked lists of seaports, risk tracts or power plants. |
 | [`city_hall_for_place`](docs/tools.md#city_hall_for_place) | Hearings, decisions and boards for a city. |
-| [`projects_for_property`](docs/tools.md#projects_for_property) | Planning cases and permits in review at an address, with their stage. |
+| [`projects_for_property`](docs/tools.md#projects_for_property) | Planning cases, permits and development specs at an address or in a named area. |
 | [`municipal_for_property`](docs/tools.md#municipal_for_property) | Who governs a property, who represents it, and who decides. |
 | [`affordable_for_place`](docs/tools.md#affordable_for_place) | Affordable housing for a city: sponsors, funding and pipeline. |
 
@@ -144,7 +146,7 @@ All tools are read-only. Schemas and example responses are in the [tools referen
 - **Districts:** names and numbers only. Election offices decide.
 - **Data centers:** official records only, such as permits and zoning cases. News never counts.
 - **Grid:** hourly figures, refreshed daily, not live.
-- **City records:** where cities publish them. Hearings and council records in Austin, Chicago, Dallas, Houston, NYC and SF; projects in review in SF, NYC, Austin and Chicago; affordable housing in SF.
+- **City records:** where cities publish them. Hearings and council records in Austin, Chicago, Dallas, Houston, NYC, SF and Highland Park, TX; projects in review in SF, NYC, Austin, Chicago and Dallas; development specs in Austin and NYC; parks projects in NYC, SF, Austin, Dallas, Chicago and Seattle; affordable housing in SF, Austin, NYC, LA and Chicago; public housing (NYCHA) in NYC.
 - **Not returned:** owners, values or sales. Parcel outlines appear only inside map images.
 - **Rate limit:** one address per call; 60 calls an hour and 300 a day from each network address.
 
@@ -197,7 +199,7 @@ Full credits are in each answer's `attribution` field.
 - **Parcels and buildings:** county assessors, Texas GIO, NYC PLUTO, SF Assessor, USA Structures (CC BY 4.0)
 - **Building names:** NYC Landmarks, National Register of Historic Places, GSA
 - **Zoning:** city and county maps and codes
-- **Permits:** DataSF, NYC Department of Buildings
+- **Permits:** DataSF, NYC Department of Buildings, City of Austin, City of Dallas
 - **Census:** ACS 2020–24 5-year estimates, Census Geocoder
 - **Districts:** Census TIGER/Line
 - **Hazards:** FEMA National Risk Index, EPA cleanup sites
@@ -207,6 +209,8 @@ Full credits are in each answer's `attribution` field.
 - **Power plants and grid:** EIA (public domain)
 - **Data center projects:** official public records, each linked
 - **City records:** city open data, clerks and councils, landmark reports
+- **Development and parks:** city permits and site plans, NYC DCP Housing Database, city parks departments
+- **Affordable and public housing:** HUD, city housing agencies, NYCHA
 
 </details>
 
