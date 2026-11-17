@@ -172,9 +172,28 @@ Types come from the county's own land-use code, mapped to these groups. Where a 
 
 </details>
 
-This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers much more, including municipal code, permits, records and rights.
+<details>
+<summary>Facilities</summary>
 
-**Left out on purpose:** private details and anything that could put people at risk. See [What L3R Leaves Out](docs/left-out.md).
+| Group | Includes |
+|---|---|
+| Power | Power plants, nuclear plants, hydropower projects, wind turbines, large solar arrays |
+| Fuel and gas | Refineries, petroleum terminals, LNG terminals, gas storage fields, offshore platforms, CO2 storage |
+| Data centers | Data center sites backed by official records |
+| Transport | Airports, ports, intermodal rail terminals, spaceports |
+| Water | Community water systems, wastewater plants, dams |
+| Mining | Mines, quarries and mineral deposits |
+| Public | Public schools, hospitals, federal property |
+| Emissions | Toxics release and greenhouse gas reporting facilities |
+| Towers | Antenna structures |
+
+Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and others), each credited on its card.
+
+</details>
+
+This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
+
+**Left out on purpose:** private details and anything that could put people at risk. See [What L3R leaves out](docs/left-out.md).
 
 ## Attribution
 

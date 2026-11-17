@@ -1,4 +1,4 @@
-# What L3R Leaves Out
+# What L3R leaves out
 
 Some facts are held by L3R but left out of the MCP server on purpose. When an answer does not show them, this is why. The same list is at [mcp.l3r.io/left-out](https://mcp.l3r.io/left-out).
 
