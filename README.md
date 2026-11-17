@@ -177,10 +177,10 @@ This is the public slice of L3R. Facts appear only where publishers allow, so a 
 Some facts are held but left out on purpose ([mcp.l3r.io/left-out](https://mcp.l3r.io/left-out)):
 
 - **Owners, values and sales:** who owns a home and what it is worth or sold for stay private.
-- **Private people's names:** only public officials are named, in their public role.
+- **Private people's names:** only public officials, and professionals such as architects in their public role, are named; buildings named after people keep their names.
 - **Shelter locations:** women's, domestic-violence, youth and homeless shelters are never shown, not even that one exists at an address, for the safety of the people in them.
 - **Housing labels that reveal health:** HIV/AIDS housing shows only as "Supportive housing", without its name. Senior, veterans and assisted living housing show with their names.
-- **Code enforcement detail:** counts only, never the complaint or the case.
+- **Code enforcement:** counts, how many are open and the newest date only — never case details, who complained or notes.
 - **Permit descriptions:** only words from a reviewed list, so personal details are not repeated.
 - **Prices of development rights:** transfers are shown, not what was paid.
 
