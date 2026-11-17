@@ -23,7 +23,7 @@
 | **Nearby** | Water, roads, rail, airports, ports, power plants, EV charging, data centers |
 | **Energy** | Grid and utilities, plant output, coal deliveries, state prices, hourly demand and flows |
 | **Data centers** | Projects backed by official records |
-| **City records** | Permits, code cases, council votes, landmark history, hearings, development projects, parks projects, affordable and public housing |
+| **City records** | Permits, code cases, council votes, budgets, projects, affordable and public housing |
 
 Each answer is a short Markdown card plus the full JSON.
 
@@ -174,7 +174,7 @@ Types come from the county's own land-use code, mapped to these groups. Where a 
 
 This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers much more, including municipal code, permits, records and rights.
 
-L3R leaves some facts out on purpose (owners, private names, shelter locations and more): see [What L3R Leaves Out](docs/what-l3r-leaves-out.md).
+**Left out on purpose:** private details and anything that could put people at risk. See [What L3R Leaves Out](docs/left-out.md).
 
 ## Attribution
 
