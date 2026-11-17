@@ -172,6 +172,18 @@ Types come from the county's own land-use code, mapped to these groups. Where a 
 
 This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers much more, including municipal code, permits, records and rights.
 
+## What L3R leaves out, and why
+
+Some facts are held but left out on purpose ([mcp.l3r.io/left-out](https://mcp.l3r.io/left-out)):
+
+- **Owners, values and sales:** who owns a home and what it is worth or sold for stay private.
+- **Private people's names:** only public officials are named, in their public role.
+- **Shelter locations:** women's, domestic-violence, youth and homeless shelters are never shown, not even that one exists at an address, for the safety of the people in them.
+- **Housing labels that reveal health:** HIV/AIDS housing shows only as "Supportive housing", without its name. Senior, veterans and assisted living housing show with their names.
+- **Code enforcement detail:** counts only, never the complaint or the case.
+- **Permit descriptions:** only words from a reviewed list, so personal details are not repeated.
+- **Prices of development rights:** transfers are shown, not what was paid.
+
 ## Attribution
 
 <details>
