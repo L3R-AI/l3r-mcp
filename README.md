@@ -137,7 +137,7 @@ All tools are read-only. Schemas and example responses are in the [tools referen
 
 ## Coverage & limits
 
-This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
+This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet.
 
 - **Parcels:** 119M+ properties in 2,100+ US counties. Census figures for all 50 states, DC and Puerto Rico.
 - **Zoning:** district rules for some cities only.
@@ -208,6 +208,8 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 | Public housing | NYC (NYCHA) |
 
 </details>
+
+[Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
 
 **Left out on purpose:** private details and anything that could put people at risk. See [What L3R leaves out](docs/left-out.md).
 
