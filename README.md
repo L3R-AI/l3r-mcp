@@ -96,7 +96,7 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 - **Grid demand:** "What is ERCOT's demand right now, and what is the fuel mix?"
 - **Grid flows:** "How much power does the California ISO import from its neighbours?"
 - **Facility:** "Tell me about the Hoover Dam power plant."
-- **City records:** "What zoning hearings are coming up in Dallas, and who decides them?"
+- **City records:** where cities publish them; see the list below.
 - **Council:** "How has Supervisor Connie Chan voted on budget items?"
 - **Affordable:** "Who are the biggest affordable housing developers in San Francisco?"
 - **Projects:** "What's in review at 3908 Menchaca Rd in Austin?"
@@ -136,6 +136,8 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 All tools are read-only. Schemas and example responses are in the [tools reference](docs/tools.md).
 
 ## Coverage & limits
+
+This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
 
 - **Parcels:** 119M+ properties in 2,100+ US counties. Census figures for all 50 states, DC and Puerto Rico.
 - **Zoning:** district rules for some cities only.
@@ -191,7 +193,21 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 
 </details>
 
-This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
+<details>
+<summary>City records</summary>
+
+| Record | Where |
+|---|---|
+| Council and hearing records | Austin, Chicago, Dallas, Houston, Los Angeles, NYC, San Francisco |
+| Smaller cities | Highland Park, University Park, West Lake Hills, Alamo Heights, Wimberley and Marble Falls, TX |
+| Budgets | Highland Park and University Park, TX: totals, departments, capital projects, actual spending |
+| Projects in review | San Francisco, NYC, Austin, Chicago, Dallas |
+| Development specs | Austin, NYC |
+| Parks projects | NYC, San Francisco, Austin, Dallas, Chicago, Seattle |
+| Affordable housing | San Francisco, Austin, NYC, Los Angeles, Chicago; Texas and California statewide |
+| Public housing | NYC (NYCHA) |
+
+</details>
 
 **Left out on purpose:** private details and anything that could put people at risk. See [What L3R leaves out](docs/left-out.md).
 
