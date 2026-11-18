@@ -219,7 +219,7 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 <details>
 <summary>Municipal code</summary>
 
-District rules from each city's own zoning code, one table per city.
+Zoning maps for 611 cities and towns and 337 counties. District rules quoted from the code itself for these cities:
 
 | State | Cities |
 |---|---|
