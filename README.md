@@ -212,7 +212,7 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 | Development specs | Austin, NYC |
 | Parks projects | NYC, SF, Austin, Dallas, Chicago, Seattle |
 | Affordable housing | SF, Austin, NYC, LA, Chicago, Texas cities, California |
-| Public housing | NYC (NYCHA) |
+| Public housing | NYC, LA, Houston, Dallas; nationwide (HUD) |
 
 </details>
 
