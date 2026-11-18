@@ -218,7 +218,7 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 
 </details>
 
-See [What L3R leaves out](docs/left-out.md).
+**Left out on purpose:** private details and anything that could put people at risk. See [what L3R leaves out](docs/left-out.md).
 
 ## Attribution
 
