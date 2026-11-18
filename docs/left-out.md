@@ -1,6 +1,6 @@
 # What L3R leaves out
 
-To protect people's privacy and safety, the L3R MCP server does not show the facts below, even where L3R holds them. This list is also at [mcp.l3r.io/left-out](https://mcp.l3r.io/left-out).
+To protect people's privacy and safety, the L3R MCP server does not show the facts below. This list is also at [mcp.l3r.io/left-out](https://mcp.l3r.io/left-out).
 
 - **Owners, values and sales:** who owns a home and what it is worth or sold for stay private.
 - **Holdings by owner:** properties are never grouped by who owns them. Each parcel stands on its own, so a farm or a set of lots under one owner is not joined into one property.
