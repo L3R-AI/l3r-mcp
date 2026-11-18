@@ -12,4 +12,4 @@ L3R holds some facts that the MCP server leaves out on purpose. If an answer doe
 
 We leave these out to respect people's privacy and keep them safe.
 
-Questions: [mcp@l3r.io](mailto:mcp@l3r.io) or [open an issue](../../../issues).
+Questions: [mcp@l3r.io](mailto:mcp@l3r.io) or [open an issue](https://github.com/L3R-AI/l3r-mcp/issues).
