@@ -145,6 +145,11 @@ This is the public slice of L3R. Facts appear only where publishers allow, so a 
 
 [Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
 
+**Rate limit:** one address per call; 60 calls an hour and 300 a day from each network address.
+
+<details>
+<summary>Limits</summary>
+
 - **Parcels:** 119M+ properties in 2,100+ US counties. Census figures for all 50 states, DC and Puerto Rico.
 - **Zoning:** district rules for some cities only.
 - **Ranches and farms:** shown one tax parcel at a time; a holding's other parcels aren't linked.
@@ -154,9 +159,8 @@ This is the public slice of L3R. Facts appear only where publishers allow, so a 
 - **Districts:** names and numbers only. Election offices decide.
 - **Data centers:** official records only, such as permits and zoning cases. News never counts.
 - **Grid:** hourly figures, refreshed daily, not live.
-- **City records:** where cities publish them; see the list below.
-- **Not returned:** owners, values or sales. Parcel outlines appear only inside map images.
-- **Rate limit:** one address per call; 60 calls an hour and 300 a day from each network address.
+
+</details>
 
 <details>
 <summary>Property types</summary>
