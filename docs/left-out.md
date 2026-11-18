@@ -11,4 +11,4 @@ To protect people's privacy and safety, the L3R MCP server does not show the fac
 - **Permit descriptions:** shown in reviewed wording only, never personal details.
 - **Prices of development rights:** transfers are shown, not what was paid.
 
-If you see something that should not be shown, email [mcp@l3r.io](mailto:mcp@l3r.io).
+_If you see something that should not be shown, email [mcp@l3r.io](mailto:mcp@l3r.io)._
