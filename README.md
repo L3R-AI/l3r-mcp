@@ -16,7 +16,7 @@
 | | Includes |
 |---|---|
 | **Property** | Type, buildings, floors, size, year built, official name, county parcel number, a stable L3R key |
-| **Place** | Location, Census tract and 2020–24 figures, congressional, legislative and school districts |
+| **Place** | Location, Census tract and 2020 to 2024 figures, congressional, legislative and school districts |
 | **Zoning** | District from the official map, with its rules where held |
 | **Map** | The lot among nearby lots, buildings, streets and zoning |
 | **Risk and site** | FEMA hazard ratings, EPA cleanup sites, wetlands, protected areas, sewer |
@@ -225,7 +225,7 @@ See [what L3R leaves out](docs/left-out.md).
 
 Each answer ends with a short source line. Please show it with the result, for example:
 
-> From Athena by L3R (PROP-…). Sources: Texas GIO, USA Structures (CC BY 4.0), Travis CAD, Census ACS 2020–24.
+> From Athena by L3R (PROP-…). Sources: Texas GIO, USA Structures (CC BY 4.0), Travis CAD, Census ACS 2020 to 2024.
 
 Where Census figures appear, also show:
 
@@ -242,7 +242,7 @@ Full credits are in each answer's `attribution` field.
 - **Building names:** NYC Landmarks, National Register of Historic Places, GSA
 - **Zoning:** city and county maps and codes
 - **Permits:** DataSF, NYC Department of Buildings, City of Austin, City of Dallas
-- **Census:** ACS 2020–24 5-year estimates, Census Geocoder
+- **Census:** ACS 2020 to 2024 5-year estimates, Census Geocoder
 - **Districts:** Census TIGER/Line
 - **Hazards:** FEMA National Risk Index, EPA cleanup sites
 - **Site screen:** USFWS wetlands, USGS PAD-US and 3DEP, FEMA flood maps, EPA
