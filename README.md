@@ -141,9 +141,7 @@ All tools are read-only. Schemas and example responses are in the [tools referen
 
 ## Coverage & limits
 
-This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet.
-
-[Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
+This is the public slice of L3R. Facts appear only where publishers allow, so a missing value often isn't licensed for display yet. [Athena](https://3drights.com) covers full records, including municipal code, permits and rights.
 
 <details>
 <summary>Limits</summary>
