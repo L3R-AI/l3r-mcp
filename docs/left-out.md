@@ -1,6 +1,6 @@
 # What L3R leaves out
 
-Some facts are held by L3R but left out of the MCP server on purpose. When an answer does not show them, this is why. The same list is at [mcp.l3r.io/left-out](https://mcp.l3r.io/left-out).
+L3R holds some facts that the MCP server leaves out on purpose. If an answer doesn't show one, this is why. Also at [mcp.l3r.io/left-out](https://mcp.l3r.io/left-out).
 
 - **Owners, values and sales:** who owns a home and what it is worth or sold for stay private.
 - **Private people's names:** only public officials, and professionals such as architects in their public role, are named; buildings named after people keep their names.
@@ -9,3 +9,7 @@ Some facts are held by L3R but left out of the MCP server on purpose. When an an
 - **Code enforcement:** counts, how many are open and the newest date only — never case details, who complained or notes.
 - **Permit descriptions:** only words from a reviewed list, so personal details are not repeated.
 - **Prices of development rights:** transfers are shown, not what was paid.
+
+We leave these out to respect people's privacy and keep them safe.
+
+Questions: [mcp@l3r.io](mailto:mcp@l3r.io) or [open an issue](../../../issues).
