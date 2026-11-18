@@ -206,7 +206,7 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 | Record | Where |
 |---|---|
 | Council and hearing records | Austin, Chicago, Dallas, Houston, LA, NYC, SF |
-| Smaller cities (TX) | West Lake Hills, Wimberley, Marble Falls, Highland Park, University Park, Alamo Heights |
+| Smaller cities (TX) | West Lake Hills, Wimberley, Marble Falls, Horseshoe Bay, Highland Park, University Park, Alamo Heights |
 | Budgets | Austin, Dallas, Houston, LA, NYC, SF, Chicago, Seattle and the smaller cities |
 | Projects in review | SF, NYC, Austin, Chicago, Dallas |
 | Development specs | Austin, NYC |
