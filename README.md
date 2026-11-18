@@ -205,13 +205,13 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 
 | Record | Where |
 |---|---|
-| Council and hearing records | Austin, Chicago, Dallas, Houston, Los Angeles, NYC, San Francisco |
-| Smaller cities | Highland Park, University Park, West Lake Hills, Alamo Heights, Wimberley and Marble Falls, TX |
-| Budgets | Highland Park and University Park, TX: totals, departments, capital projects, actual spending |
-| Projects in review | San Francisco, NYC, Austin, Chicago, Dallas |
+| Council and hearing records | Austin, Chicago, Dallas, Houston, LA, NYC, SF |
+| Smaller cities (TX) | Highland Park, University Park, West Lake Hills, Alamo Heights, Wimberley, Marble Falls |
+| Budgets | Highland Park and University Park, TX |
+| Projects in review | SF, NYC, Austin, Chicago, Dallas |
 | Development specs | Austin, NYC |
-| Parks projects | NYC, San Francisco, Austin, Dallas, Chicago, Seattle |
-| Affordable housing | San Francisco, Austin, NYC, Los Angeles, Chicago, Texas cities; California statewide |
+| Parks projects | NYC, SF, Austin, Dallas, Chicago, Seattle |
+| Affordable housing | SF, Austin, NYC, LA, Chicago, Texas cities, California |
 | Public housing | NYC (NYCHA) |
 
 </details>
