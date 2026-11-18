@@ -216,20 +216,6 @@ Facilities come from federal and state registries (EIA, NRC, FERC, FAA, EPA and 
 
 </details>
 
-<details>
-<summary>Municipal code</summary>
-
-Zoning maps for 611 cities and towns and 337 counties. District rules quoted from the code itself for these cities:
-
-| State | Cities |
-|---|---|
-| California | LA, SF, Oakland, San Jose, Long Beach |
-| Texas | Austin, Dallas, Highland Park, University Park, Sugar Land |
-| Florida | Orlando, Tampa |
-| Other | NYC, Chicago, Detroit, Columbus, Kansas City, Mesa, Omaha, Pittsburgh, Tulsa, Wichita, Boise |
-
-</details>
-
 See [what L3R leaves out](docs/left-out.md).
 
 ## Attribution
