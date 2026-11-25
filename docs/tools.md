@@ -30,8 +30,16 @@ show as is, and the full answer as JSON in `structuredContent`. No tool calls a 
 | [`affordable_for_place`](#affordable_for_place) | Affordable housing for a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`property_profile`](#property_profile) | Profile of a US property | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`zoning_table_for_city`](#zoning_table_for_city) | Zoning rules table for a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`show_property_photo`](#show_property_photo) | Show a property's photo | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: true` |
+| [`mineral_production`](#mineral_production) | Mineral production on federal and tribal lands (ONRR) | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`ordinances_for_place`](#ordinances_for_place) | Recent ordinances, local laws and agency rules for a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`municipal_code_for_place`](#municipal_code_for_place) | Municipal code text for a place | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`developments_for_place`](#developments_for_place) | New developments in a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`land_use_changes_for_place`](#land_use_changes_for_place) | Rezonings and landmark designations in a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`energy_benchmarking_for_property`](#energy_benchmarking_for_property) | Energy benchmarking and NYC Local Law 97 for a property | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`energy_benchmarking_for_place`](#energy_benchmarking_for_place) | Energy benchmarking and NYC Local Law 97 across a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 
-Every example below is real output from the live server at `https://mcp.l3r.io/mcp`, captured on 8 November 2026. The examples for `districts_for_property`, `energy_service_for_property` and `site_screen_for_property` were captured on 11 November 2026, as were those for `data_center_projects`, `energy_plant_history`, `electricity_state_profile`, `grid_demand_mix`, `grid_interchange` and `coal_shipments`. The examples for `coverage_for_county` and `list_reference_data` were captured on 12 November 2026. The cards for `lookup_property`, `zoning_for_property`, `property_profile` and `zoning_table_for_city` were captured on 17 November 2026. Each
+Every example below is real output from the live server at `https://mcp.l3r.io/mcp`, captured on 8 November 2026. The examples for `districts_for_property`, `energy_service_for_property` and `site_screen_for_property` were captured on 11 November 2026, as were those for `data_center_projects`, `energy_plant_history`, `electricity_state_profile`, `grid_demand_mix`, `grid_interchange` and `coal_shipments`. The examples for `coverage_for_county` and `list_reference_data` were captured on 12 November 2026. The cards for `lookup_property`, `zoning_for_property`, `property_profile` and `zoning_table_for_city` were captured on 17 November 2026. The examples for `mineral_production`, `ordinances_for_place`, `municipal_code_for_place`, `developments_for_place`, `land_use_changes_for_place` and both `energy_benchmarking` tools were captured on 25 November 2026. Each
 passed the server's own answer gates: a key allowlist at every depth, a guard against owner, holder and contact fields,
 and a size cap. Nothing was edited by hand.
 
@@ -61,6 +69,14 @@ and a size cap. Nothing was edited by hand.
 - [`affordable_for_place`](#affordable_for_place)
 - [`property_profile`](#property_profile)
 - [`zoning_table_for_city`](#zoning_table_for_city)
+- [`show_property_photo`](#show_property_photo)
+- [`mineral_production`](#mineral_production)
+- [`ordinances_for_place`](#ordinances_for_place)
+- [`municipal_code_for_place`](#municipal_code_for_place)
+- [`developments_for_place`](#developments_for_place)
+- [`land_use_changes_for_place`](#land_use_changes_for_place)
+- [`energy_benchmarking_for_property`](#energy_benchmarking_for_property)
+- [`energy_benchmarking_for_place`](#energy_benchmarking_for_place)
 - [Errors and refusals](#errors-and-refusals)
 
 ---
@@ -3765,6 +3781,603 @@ More: 3drights.com
 ```
 
 (Two of the seven rows are shown.)
+
+---
+
+## `show_property_photo`
+
+The property's street photo: Google Street View aimed at the building, credited with its month, or an aerial of the lot where Street View has none within about 60 m. One photo per property.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `property_key` | string | yes | One L3R PROP- key from lookup_property. |
+
+### Limits
+
+- Needs a `PROP-` key from `lookup_property`.
+- Answers 'No photo for this property' when neither is held.
+
+---
+
+## `mineral_production`
+
+What is produced from federal and tribal lands in one county, one state or the US, from ONRR production and revenue data: a commodity table for the newest full year against the year before, and revenue by type and by commodity.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `county` | string | no | County name, e.g. Eddy (with state), or 'Eddy, NM'. |
+| `state` | string | no | Two-letter state, e.g. NM: with county, or alone for the state (US for the nation). |
+| `fips` | string | no | Or the 5-digit county FIPS code, e.g. 35015. |
+| `commodity` | string | no | Only this mineral, e.g. oil, gas, coal, potash, trona, lithium. |
+| `years` | string | no | A year (2024), a range ('2016-2025') or a list; default the newest full year and the year before. |
+| `page` | integer | no | The commodity table's page, 1 first. |
+
+### Limits
+
+- Federal and tribal leases only; private and state-land production is not included.
+- Tribal production is national only (state `US`).
+
+### Example
+
+```json
+{"name": "mineral_production", "arguments": {"county": "Eddy", "state": "NM"}}
+```
+
+```markdown
+### Mineral production: Eddy County, NM
+_Federal and tribal lands only: ONRR reports production and revenue from federal (onshore and offshore) and Native American leases. Private and state-land production is not included._
+
+| Commodity | 2025 | 2024 | Change |
+|---|---|---|---|
+| Oil (incl. mixed units) | 246,265,318 bbl | 210,413,342 bbl | +17% |
+| Gas (incl. mixed units) | 1,285,147,451 mcf | 1,101,484,849 mcf | +17% |
+| Langbeinite | 531,183 ton | 715,996 ton | -26% |
+| Magnesium Chloride Brine | 55,585 ton | 44,240 ton | +26% |
+| Muriate of Potash-Granular | 60,618 ton | 40,627 ton | +49% |
+| Muriate of Potash-Standard | 55,965 ton | 77,215 ton | -28% |
+| Salt | 694,695 ton | 656,428 ton | +6% |
+
+**Federal and tribal revenue, 2025:** $2.55 billion (2024: $2.30 billion): royalties $2.43 billion, bonuses $63.1 million, other revenues $56.0 million, rents $354,168.
+- Royalties by commodity, 2025: oil $1.94 billion, NGL $344.0 million, gas $138.7 million, potassium $11.9 million, sodium $1.5 million
+- Includes mixed exploratory units (ONRR's class for federal exploratory units that also take in non-federal tracts), 2025: 31,441,165 bbl oil, 114,155,767 mcf gas
+- ONRR prints Native American (tribal) production for the nation only (state US), not by state or county.
+
+From Athena by L3R. Sources: Office of Natural Resources Revenue (ONRR): calendar-year production and revenue to 2025.
+
+More: 3drights.com
+```
+
+---
+
+## `ordinances_for_place`
+
+A city's recent ordinances or local laws, newest first, read daily from the government's own records: number, title, status, enactment and effective dates, the code sections amended, and a link to the official record. Where held: what it does, the vote and the sponsors. For New York City also the agencies' adopted rules (HPD, DOB, DCWP, the Rent Guidelines Board).
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `place` | string | yes | One city with its state, e.g. 'San Francisco, CA' or 'New York, NY'. |
+| `state` | string | no | Two-letter state, e.g. CA. |
+| `status` | string | no | Enacted (default), pending (passed or still before the body) or all. |
+| `code` | string | no | Only ordinances amending this code, e.g. 'housing', 'planning', 'administrative'. |
+| `section` | string | no | Only ordinances amending this section number, e.g. '503'. |
+| `kind` | string | no | All (default), laws (ordinances, local laws) or rules (agency rules: New York City). |
+| `topic` | string | no | Only items on this subject, e.g. 'housing' (housing, building and land use) or an agency such as 'HPD'. |
+| `page` | integer | no | The page, 1 first (the card says when there is more). |
+
+### Limits
+
+- San Francisco (Board of Supervisors) and New York City (City Council, agency rules).
+- Titles that may name a private person (settlements, claims, honorary naming) are left out, and the card says so.
+
+### Example
+
+```json
+{"name": "ordinances_for_place", "arguments": {"place": "New York, NY", "topic": "housing", "kind": "laws"}}
+```
+
+```markdown
+### Recent local laws: New York, NY
+_Enacted local laws of the City Council, on housing; 1–8 of 48 shown, newest first (page 1 of 6). Records as of Nov 25, 2026, read daily._
+
+#### Local Law 171 of 2026 (Int 0978-2026): Increasing the maximum income level qualifying for exemption from rent increases granted to certain senior citizens and persons with disabilities and adjusting the income requirements related thereto.
+Administrative Code § 26-405, 26-509, 26-601, 26-617
+
+**In effect since Nov 21, 2026**, enacted Nov 21; Council vote 49–0 on Oct 22, 2026
+
+What it does: This bill would increase the maximum income level for eligibility for the Senior Citizen Rent Increase Exemption program and the Disability Rent Increase Exemption program to $75,000 beginning July 1, 2026, and would align the definition of income used to determine eligibility for these programs with State law.
+
+Sources: Council summary. Sponsored by Farah N. Louis and 35 others.
+
+#### Local Law 164 of 2026 (Int 0905-2026): Giving qualified entities a first opportunity to submit a statement of interest and a first opportunity to purchase certain properties.
+Administrative Code § 26-851, 26-852, 26-853, 26-854, 26-855, 26-856 and 11 more
+
+**Enacted Nov 10, 2026, takes effect Nov 10, 2027**; Council vote 38–9 on Oct 22, 2026
+
+What it does: This bill would give certain not-for-profits or joint ventures between not-for-profits and other entities, as certified by the Department of Housing Preservation and Development (“HPD”), a first opportunity to submit a statement of interest in purchasing and a first opportunity to purchase certain residential properties when offered for sale.
+
+Sources: Council summary. Sponsored by Sandy Nurse and 32 others.
+
+#### Local Law 160 of 2026 (Int 1015-2026): Abatement of taxation for alterations and improvements to certain multiple dwellings.
+Administrative Code § 11-243.3
+
+**Enacted Oct 24, 2026, takes effect Jan 1, 2027**; Council vote 46–0 on Sep 24, 2026
+
+What it does: This bill would extend the J-51 tax abatement for certain alterations or improvements to include projects completed on or after June 30, 2026 and before June 30, 2036. Condos and coops where the average assessed valuation is under $60,000 per dwelling unit (adjusted annually for inflation) would be eligible for the abatement.
+
+Sources: Council summary. Sponsored by Pierina Ana Sanchez and 31 others.
+
+#### Local Law 151 of 2026 (Int 0804-2026): The maximum allowable illuminance of residential outdoor lighting fixtures.
+Administrative Code § 28-508.1, 28-508.2, 28-508.3, 28-508.4
+
+**Enacted Oct 10, 2026, takes effect Jul 7, 2027**; Council vote 46–3 on Sep 10, 2026
+
+What it does: This bill would establish a maximum allowable illuminance of 1 footcandle (11 lux) for certain residential outdoor lighting fixtures. The illuminance limit would apply only to 1- and 2-family homes in low-density residential districts. Outdoor lighting fixtures that are government-operated, used to illuminate a parking lot or sidewalk shed, used for construction safety, part of lawful signs, or part of temporary ornamental displays would be exempt.
+
+Sources: Council summary. Sponsored by Phil Wong and 4 others.
+
+#### Local Law 138 of 2026 (Int 0839-2026): Making the certification of no harassment pilot program permanent and adding criteria for inclusion of certain buildings in the program.
+Administrative Code § 27-2093.1
+
+**Enacted Sep 12, 2026, takes effect Jun 9, 2027**; Council vote 36–5 on Aug 13, 2026
+
+What it does: This bill would make the Certification of No Harassment (CONH) pilot program permanent, with a new program list published by the Department of Housing Preservation and Development (HPD) every 3 years beginning on April 15, 2027. This bill would require that the building qualification index, used as a criterion for buildings on the program list, be recalculated every 3 years.
+
+Sources: Council summary. Sponsored by Pierina Ana Sanchez and 30 others.
+
+#### Local Law 123 of 2026 (Int 0910-2026): Repeal section 28-103.22 of the administrative code of the city of New York relating to outreach on security grille visibility requirements, penalties for non-conforming security grilles and the retroactive application of security grille requirements.
+Administrative Code § 28-103.22, 28-315.7.1, 28-201.2.2
+
+**In effect since Jul 30, 2026**, enacted Jul 30; Council vote 51–0 on Jun 30, 2026
+
+What it does: This bill would repeal the requirement originally set out in Local Law 75 of 2009, that as of July 1, 2026, all security grilles installed in Group B or M buildings permit visibility of at least 70 percent of the area covered by the grille.
+
+Sources: Council summary. Sponsored by Althea V. Stevens and 34 others.
+
+#### Local Law 80 of 2026 (Int 0421-2026): Occupancy of cellar ancillary dwelling units in newly constructed one- and two-family dwellings.
+Administrative Code § 27-2087
+
+**In effect since Apr 9, 2026**, enacted Apr 9; Council vote 41–8 on Mar 10, 2026
+
+What it does: This bill would allow ancillary dwelling units in cellars of one- and two-family dwellings, created as part of new construction, to be utilized as a rental unit, to be consistent with exemptions for ancillary dwelling units in cellars created in existing one- and two-family dwellings.
+
+Sources: Council summary. Sponsored by Pierina Ana Sanchez and 4 others.
+
+#### Local Law 66 of 2026 (Int 1443-2025): Citywide percentage of rental units in projects receiving city financial assistance that must be affordable for extremely low-income and very low-income households.
+Administrative Code § 26-3801
+
+**Enacted Jan 29, 2026**, effective on the date the law sets; veto override 45–6 on Jan 29, 2026
+
+What it does: This bill would require that a minimum percentage of rental housing financed by the City are affordable to households with the least means to afford housing. Of the new affordable housing financed by the Department of Housing and Preservation Development, known as HPD, 50% would have to be affordable to extremely and very low-income households, with at least 30% of the total affordable to extremely low-income households.
+
+Sources: Council summary. Sponsored by Sandy Nurse and 7 others.
+
+_40 more local laws: ask for page 2, or narrow with code, section or topic._
+
+_Official list: [legistar.council.nyc.gov/Legislation.aspx](https://legistar.council.nyc.gov/Legislation.aspx)._
+
+From Athena by L3R. Sources: NYC Council.
+
+_Legislative records, not legal advice: the enacted ordinance governs; check the city's official record before relying on it._
+
+More: 3drights.com
+```
+
+---
+
+## `municipal_code_for_place`
+
+Search one place's held municipal code by words or by section number, law text only. Each section comes with its heading, a short quote, the code's name and a link to the official code. A held section that a newer ordinance amends says so, with the change and its effective date.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `place` | string | yes | One city or county with its state, e.g. 'Dallas, TX' or 'Marin County, CA'. |
+| `state` | string | no | Two-letter state, e.g. TX. |
+| `query` | string | no | Words to find, e.g. 'short-term rental', 'tree removal', 'fence height'. |
+| `section` | string | no | Or a section number instead of query, e.g. '51A-4.209'. |
+| `title` | string | no | Only this part of the code: charter, zoning, subdivision, planning, building, fire, health, housing, utilities, nuisance, business licensing, environment, streets and right of way, administrative, other. |
+| `page` | integer | no | The page, 1 first (the card says when there is more). |
+
+### Limits
+
+- Codes for about 500 cities and counties.
+- 5 sections a page.
+- Codifier editorial notes are left out. Not legal advice: the official code governs.
+
+### Example
+
+```json
+{"name": "municipal_code_for_place", "arguments": {"place": "San Francisco, CA", "section": "503", "title": "housing"}}
+```
+
+```markdown
+### Municipal code: San Francisco, CA
+_section 503: 1 matching section in the housing part; 1–1 shown._
+
+**§ 503 Room dimensions**
+[SF Housing Code](https://codelibrary.amlegal.com/codes/san_francisco/latest/)
+
+**Changing Dec 5, 2026** under [Ord. 234-26](https://media.api.sf.gov/documents/o0234-26.pdf), enacted Nov 4
+
+| Ceiling height | Now | From Dec 5 |
+|---|---|---|
+| Habitable rooms | 7 ft 6 in | 7 ft (existing buildings) |
+| Other rooms | 7 ft | 6 ft 8 in |
+
+From Athena by L3R. Sources: [Ordinance PDF](https://media.api.sf.gov/documents/o0234-26.pdf), and code text via American Legal Publishing (city codifier). Checked against new ordinances Nov 24.
+
+_Law text only, not legal advice: the official code governs; check the current code before relying on it._
+
+More: 3drights.com
+```
+
+---
+
+## `developments_for_place`
+
+New developments across San Francisco or New York City, from the cities' own open data: projects and units by stage, then a table of projects (newest status change first) with address, stage, units and affordable units, each linked to its official record, and who approved the first one.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `place` | string | yes | 'San Francisco', 'New York City', one NYC borough (e.g. 'Brooklyn') or one SF neighbourhood (e.g. 'Mission, San Francisco'). |
+| `state` | string | no | Two-letter state, CA or NY. |
+| `stage` | string | no | Only this stage: planning, approved, permit filed, permit approved, permit issued, construction or completed. |
+| `min_units` | integer | no | Only projects with at least this many units. |
+| `page` | integer | no | The page of projects, 1 first (5 a page). |
+
+### Limits
+
+- San Francisco (citywide or one neighbourhood) and New York City (citywide or one borough).
+- 5 projects a page; projects are named only where the official record names them.
+
+### Example
+
+```json
+{"name": "developments_for_place", "arguments": {"place": "San Francisco", "state": "CA"}}
+```
+
+```markdown
+### New developments: San Francisco
+1,920 projects, 93,785 housing units, 18,484 affordable (the city's records read Nov 25, 2026).
+
+| Stage | Projects | Units | Affordable |
+|---|---:|---:|---:|
+| In planning review | 435 | 14,661 | 2,006 |
+| Planning approved | 421 | 61,854 | 12,280 |
+| Building permit filed | 379 | 8,039 | 781 |
+| Building permit approved | 88 | 2,673 | 85 |
+| Building permit issued | 120 | 1,831 | 1,146 |
+| Under construction | 477 | 4,727 | 2,186 |
+
+**Projects, newest status change first** (page 1 of 20; 1,920 in all)
+| Project | Address | Stage | Units (affordable) | Updated |
+|---|---|---|---|---|
+| [Planning record 2026-003460PRJ](https://sfplanninggis.org/pim?search=2026-003460PRJ) | 572 CHESTNUT ST - Modified Project | Building permit approved | 6 | Nov 24, 2026 |
+| Planning record 2026-001007PRL | 2595 Folsom St | Building permit filed | 1 | Nov 24, 2026 |
+| [Planning record 2025-007341PRJ](https://sfplanninggis.org/pim?search=2025-007341PRJ) | 1658 Kirkwood Avenue | Under construction | 3 | Nov 24, 2026 |
+| [Planning record 2025-007332PRJ](https://sfplanninggis.org/pim?search=2025-007332PRJ) | 1654 Kirkwood Avenue | Under construction | 3 | Nov 24, 2026 |
+| [Planning record 2025-006531PRJ](https://sfplanninggis.org/pim?search=2025-006531PRJ) | 260 Chattanooga St | Building permit approved | 3 | Nov 24, 2026 |
+
+**Approved by: 572 CHESTNUT ST - Modified Project**
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Planning application | SF Planning | filed | Apr 22, 2026 |
+| Planning approval | SF Planning | project approved | Apr 29, 2026 |
+| Building permit | Department of Building Inspection | filed | Sep 30, 2025 |
+| Building permit | Department of Building Inspection | issued | Nov 24, 2026 |
+
+**Approved by: 2595 Folsom St**
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Building permit | Department of Building Inspection | filed | Jan 30, 2026 |
+| Building permit | Department of Building Inspection | issued | Nov 24, 2026 |
+
+**Approved by: 1658 Kirkwood Avenue**
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Planning application | SF Planning | filed | Aug 11, 2025 |
+| Planning approval | SF Planning | approved (pipeline report) | Dec 19, 2025 |
+| Building permit | Department of Building Inspection | filed | Aug 5, 2025 |
+| Building permit | Department of Building Inspection | issued | Mar 17, 2026 |
+| Building permit | Department of Building Inspection | completed | Nov 24, 2026 |
+
+**Approved by: 1654 Kirkwood Avenue**
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Planning application | SF Planning | filed | Aug 8, 2025 |
+| Planning approval | SF Planning | approved (pipeline report) | Dec 19, 2025 |
+| Building permit | Department of Building Inspection | filed | Aug 5, 2025 |
+| Building permit | Department of Building Inspection | issued | Mar 17, 2026 |
+| Building permit | Department of Building Inspection | completed | Nov 24, 2026 |
+
+**Approved by: 260 Chattanooga St**
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Planning application | SF Planning | filed | Jul 17, 2025 |
+| Planning approval | SF Planning | project approved | Aug 13, 2025 |
+| Building permit | Department of Building Inspection | filed | Jan 29, 2026 |
+| Building permit | Department of Building Inspection | issued | Nov 24, 2026 |
+_95 more: page 2._
+
+_Stages are the city's own status words on one scale. Units are proposed units; affordable units as the city's records count them. Owners, applicants, sponsors and contacts are not shown. DBI permits are cited by number._
+
+From Athena by L3R. Sources: SF Planning Development Pipeline; SF Planning project records; SF DBI building permits; DataSF (PDDL).
+
+More: 3drights.com
+```
+
+---
+
+## `land_use_changes_for_place`
+
+Rezonings and landmark designations in San Francisco or New York City, newest first, from the cities' own records: what, where, its stage and dates, and who decided it (Step | Body | Outcome | Date, with the vote where held).
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `place` | string | yes | 'San Francisco', 'New York City' or one NYC borough (e.g. 'Brooklyn'). |
+| `state` | string | no | Two-letter state, CA or NY. |
+| `kind` | string | no | 'rezoning', 'landmark' or 'all' (default). |
+| `status` | string | no | 'in review' (proposed, in public review, calendared or heard), 'approved' (approved or designated), or one stage: proposed, certified, calendared, heard, approved, designated, denied, withdrawn. |
+| `page` | integer | no | The page of items, 1 first (5 a page). |
+
+### Limits
+
+- New York City: DCP's Zoning Application Portal, City Council land use votes and Landmarks Preservation Commission designations.
+- San Francisco: Board of Supervisors legislative records and Historic Preservation Commission minutes.
+- 5 items a page.
+
+### Example
+
+```json
+{"name": "land_use_changes_for_place", "arguments": {"place": "Brooklyn", "state": "NY", "kind": "rezoning"}}
+```
+
+```markdown
+### Rezonings: Brooklyn, New York City
+_157 rezonings on record, 40 in review now. Records read Nov 25, 2026, weekly._
+
+| Stage | Rezonings |
+|---|---:|
+| Proposed | 27 |
+| In public review | 13 |
+| Approved | 116 |
+| Withdrawn | 1 |
+
+_Newest first, 1–5 of 157 shown (page 1 of 20)._
+
+#### ZAP project 2025K0284
+Zoning map and text change, Brooklyn Community District 10, 1 lot
+
+**Approved Oct 6, 2026**
+
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Application filed | Department of City Planning | filed | Jan 22, 2026 |
+| Certified, public review began | Department of City Planning | certified and referred | Mar 16, 2026 |
+| Community Board | Brooklyn Community Board 10 | recommendation not in NYC Open Data | — |
+| Borough President | Brooklyn Borough President | recommendation not in NYC Open Data | — |
+| City Planning Commission | City Planning Commission | vote not in NYC Open Data | — |
+| City Council | City Council | vote not in L3R's held Council record | — |
+| Approval | ZAP record | approved | Oct 6, 2026 |
+
+Sources: ZAP project 2025K0284, ULURP 260238ZMK, 260239ZRK, NYC DCP Zoning Application Portal (NYC Open Data).
+
+#### 289 Kent Avenue
+Zoning map and text change, Brooklyn Community District 1, 7 lots
+
+**Approved Oct 6, 2026**
+
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Application filed | Department of City Planning | filed | Oct 17, 2025 |
+| Certified, public review began | Department of City Planning | certified and referred | Apr 13, 2026 |
+| Community Board | Brooklyn Community Board 1 | recommendation not in NYC Open Data | — |
+| Borough President | Brooklyn Borough President | recommendation not in NYC Open Data | — |
+| City Planning Commission | City Planning Commission | vote not in NYC Open Data | — |
+| City Council | City Council | vote not in L3R's held Council record | — |
+| Approval | ZAP record | approved | Oct 6, 2026 |
+
+Sources: ZAP project 2024K0240, ULURP 260087ZMK, 260088ZRK, NYC DCP Zoning Application Portal (NYC Open Data).
+
+#### ZAP project 2022K0430
+Zoning map and text change, Brooklyn Community District 3, 37 lots
+
+**Approved Oct 6, 2026**
+
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Application filed | Department of City Planning | filed | Jan 8, 2024 |
+| Certified, public review began | Department of City Planning | certified and referred | Mar 16, 2026 |
+| Community Board | Brooklyn Community Board 3 | recommendation not in NYC Open Data | — |
+| Borough President | Brooklyn Borough President | recommendation not in NYC Open Data | — |
+| City Planning Commission | City Planning Commission | vote not in NYC Open Data | — |
+| City Council | City Council | vote not in L3R's held Council record | — |
+| Approval | ZAP record | approved | Oct 6, 2026 |
+
+Sources: ZAP project 2022K0430, ULURP 240218ZMK, N240219ZRK, NYC DCP Zoning Application Portal (NYC Open Data).
+
+#### 132 Melrose Street
+Zoning map and text change, Brooklyn Community District 4, 5 lots
+
+**Approved Sep 24, 2026**
+
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Application filed | Department of City Planning | filed | Oct 27, 2025 |
+| Certified, public review began | Department of City Planning | certified and referred | Mar 16, 2026 |
+| Community Board | Brooklyn Community Board 4 | recommendation not in NYC Open Data | — |
+| Borough President | Brooklyn Borough President | recommendation not in NYC Open Data | — |
+| City Planning Commission | City Planning Commission | vote not in NYC Open Data | — |
+| City Council | City Council | vote not in L3R's held Council record | — |
+| Approval | ZAP record | approved | Sep 24, 2026 |
+
+Sources: ZAP project 2024K0196, ULURP 260135ZMK, 260136ZRK, NYC DCP Zoning Application Portal (NYC Open Data).
+
+#### 862-868 Kent Avenue
+Zoning map and text change, Brooklyn Community District 3, 15 lots
+
+**Approved Sep 24, 2026**; City Council approved 46–0 (5 absent) on Sep 24, 2026
+
+| Step | Body | Outcome | Date |
+|---|---|---|---|
+| Certified, public review began | Department of City Planning | certified and referred | Mar 2, 2026 |
+| Community Board | Brooklyn Community Board 3 | recommendation not in NYC Open Data | — |
+| Borough President | Brooklyn Borough President | recommendation not in NYC Open Data | — |
+| City Planning Commission | City Planning Commission | vote not in NYC Open Data | — |
+| City Council | City Council | approved 46–0 (5 absent) | Sep 24, 2026 |
+
+Sources: ZAP project 2019K0190, ULURP 240283ZMK, N240284ZRK, NYC DCP Zoning Application Portal (NYC Open Data), New York City Council land use votes.
+
+_95 more: ask for page 2, or narrow with kind, status or a borough._
+
+_Stages are the city's own steps on one scale. Lots are those the record lists. Applicants and owners are not shown; landmarks by their official names. Community Board, Borough President and City Planning Commission recommendations are not in NYC Open Data._
+
+From Athena by L3R. Sources: NYC Council land use votes; NYC DCP Zoning Application Portal (NYC Open Data); NYC Open Data, used under the NYC.gov Terms of Use (https://www.nyc.gov/main/terms-of-use) and the Open Data Law (Local Law 11 of 2012).
+
+More: 3drights.com
+```
+
+---
+
+## `energy_benchmarking_for_property`
+
+One New York City or San Francisco building's energy benchmarking from the cities' own open data: the latest ENERGY STAR score, site EUI and GHG, each placed among the same property type that year, every year reported with a trend, and for NYC whether it is covered by Local Law 97 and how its reported GHG compares with the 2024-2029 and 2030-2034 limits.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `property_key` | string | no | An L3R PROP- key from lookup_property. |
+| `query` | string | no | Or one street address, NYC BBL or SF block/lot. |
+| `state` | string | no | Two-letter state, e.g. TX (needed for a parcel number). |
+| `county` | string | no | County name, e.g. Travis (for a parcel number). |
+| `city` | string | no | City, for an address without one in the text. |
+| `zip` | string | no | Five-digit ZIP code. |
+
+### Limits
+
+- New York City and San Francisco.
+- The LL97 comparison is an estimate from reported benchmarking, not a DOB determination. No penalty figures.
+
+### Example
+
+```json
+{"name": "energy_benchmarking_for_property", "arguments": {"query": "350 Fifth Avenue, New York, NY"}}
+```
+
+```markdown
+### Energy benchmarking: 350 FIFTH AVENUE
+
+**Covered by Local Law 97: yes, Article 320 from 2024 (CP0); latest report 2025 (calendar year).**
+
+| Measure | 2025 | Compared with peers |
+|---|---:|---|
+| ENERGY STAR score | 79 | higher than 47% of 1,887 |
+| Site EUI (kBtu/sq ft) | 59.9 | higher than 50% of 2,261 (lower is better) |
+| GHG intensity (kg CO2e/sq ft) | 5.76 | higher than 55% of 2,265 (lower is better) |
+| Total GHG (t CO2e) | 16,424 | — |
+| LL97 limit 2024–2029 (t CO2e) | 21,736 | under |
+| LL97 limit 2030–2034 (t CO2e) | 7,764 | over by about 8,700 t |
+
+_Office, 2,852,257 sq ft; peers: NYC Office reports (2025)._
+_Estimate from the building's reported benchmarking, not a DOB determination. Limits are the 1 RCNY 103-14 factors times each use's floor area; reported GHG uses Portfolio Manager's factors, not LL97's._
+
+| Year | ENERGY STAR | Site EUI | GHG (t CO2e) |
+|---|---:|---:|---:|
+| 2019 | 80 | 80.6 | 17,711 |
+| 2020 | 81 | 58.9 | 12,375 |
+| 2021 | 79 | 56.0 | 11,308 |
+| 2022 | 80 | 64.4 | 14,048 |
+| 2023 | 79 | 59.4 | 15,470 |
+| 2024 | 78 | 61.4 | 16,678 |
+| 2025 | 79 | 59.9 | 16,424 |
+
+_Site EUI down 26% since 2019 (80.6 to 59.9 in 2025). Years reported: 2019–2025._
+
+16,424 t CO2e is about the yearly emissions of 3,800 gasoline cars, or the energy use of 2,200 US homes; its site energy is about 50,000 MWh (1,700,000 therms).
+
+_ENERGY STAR runs 1 to 100 (50 is the national median; 75 or more can be certified). Site EUI is the energy a building uses per sq ft in a year (kBtu); GHG intensity is its emissions per sq ft (kg CO2e). Lower EUI and GHG are better._
+
+From Athena by L3R (PROP-D168D2CBF662B6AB). Sources: NYC LL84 (NYC Open Data); DOB Covered Buildings List FY2026 (nyc.gov); 1 RCNY 103-14 emissions factors; EPA Greenhouse Gas Equivalencies; NYC Open Data and nyc.gov, used under the NYC.gov Terms of Use (https://www.nyc.gov/main/terms-of-use).
+
+More: 3drights.com
+```
+
+---
+
+## `energy_benchmarking_for_place`
+
+Energy benchmarking across New York City (or one borough) or San Francisco: for NYC the Local Law 97 buildings by borough and the share over each limit; for SF the newest year's statuses; for both the medians by property type, the citywide trend, and the total GHG in plain equivalents (EPA Greenhouse Gas Equivalencies).
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `place` | string | yes | 'New York City', one NYC borough (e.g. 'Brooklyn') or 'San Francisco'. |
+| `state` | string | no | Two-letter state, NY or CA. |
+
+### Limits
+
+- New York City and San Francisco.
+- Estimates from reported benchmarking, not a DOB determination.
+
+### Example
+
+```json
+{"name": "energy_benchmarking_for_place", "arguments": {"place": "San Francisco", "state": "CA"}}
+```
+
+```markdown
+### Energy benchmarking: San Francisco
+
+**2,484 buildings in the 2025 benchmarking list: 1,770 Complied, 603 Violation - Did Not Report, 91 Exempt, 20 Violation - Insufficient Data.**
+
+**Medians by property type (2025)**
+
+| Property type | Reports | ENERGY STAR | Site EUI | GHG (kg/sq ft) |
+|---|---:|---:|---:|---:|
+| Office | 768 | 86 | 30.7 | 1.75 |
+| Multifamily Housing | 584 | 96 | 31.6 | 1.71 |
+| Hotel | 166 | 84 | 53.8 | 3.02 |
+| Commercial | 132 | — | 43.5 | 2.40 |
+| Mixed Residential | 121 | — | 17.3 | 0.99 |
+| Retail Store | 104 | 86 | 35.0 | 1.99 |
+| Mixed Use Property | 58 | 82 | 32.9 | 1.74 |
+
+**Citywide by year (medians)**
+
+| Year | Reports | ENERGY STAR | Site EUI | Total GHG (t CO2e) |
+|---|---:|---:|---:|---:|
+| 2018 | 1,360 | 79 | 46.1 | 618,906 |
+| 2019 | 1,372 | 82 | 42.8 | 580,584 |
+| 2020 | 1,520 | 89 | 35.3 | 513,718 |
+| 2021 | 1,634 | 85 | 35.5 | 537,684 |
+| 2022 | 1,759 | 88 | 36.5 | 645,009 |
+| 2023 | 1,799 | 88 | 35.9 | 642,024 |
+| 2024 | 1,878 | 90 | 33.1 | 657,434 |
+| 2025 | 1,770 | 89 | 32.9 | 572,003 |
+
+_Median site EUI down 29% since 2018 (46.1 to 32.9 in 2025). Totals add the reports filed each year, so they move with the number filed. Years reported: 2011–2025._
+
+2025 reports together: 572,003 t CO2e is about the yearly emissions of 130,000 gasoline cars, or the energy use of 77,000 US homes.
+
+_ENERGY STAR runs 1 to 100 (50 is the national median; 75 or more can be certified). Site EUI is the energy a building uses per sq ft in a year (kBtu); GHG intensity is its emissions per sq ft (kg CO2e). Lower EUI and GHG are better._
+
+From Athena by L3R. Sources: SF EBO; EPA Greenhouse Gas Equivalencies; DataSF (PDDL).
+
+More: 3drights.com
+```
 
 ---
 

@@ -25,9 +25,9 @@
 | **Map** | The lot among nearby lots, buildings, streets, zoning |
 | **Risk and site** | FEMA hazard ratings, EPA cleanup sites, wetlands, protected areas, sewer |
 | **Nearby** | Water, roads, rail, airports, ports, power plants, EV charging, data centers |
-| **Energy** | Grid, utilities, plant output, coal deliveries, state prices, hourly demand, power flows |
+| **Energy** | Grid, utilities, plant output, coal deliveries, state prices, hourly demand, power flows, building benchmarking |
 | **Data centers** | Projects backed by permits, zoning cases and other official records |
-| **City records** | Permits, code cases, council votes, budgets, projects, affordable and public housing, property tax rates (Texas, Florida, Maryland, New Jersey, Tennessee) |
+| **City records** | Permits, code cases, council votes, ordinances, municipal code, new developments, rezonings and landmarks, budgets, projects, affordable and public housing, property tax rates (Texas, Florida, Maryland, New Jersey, Tennessee) |
 
 Each answer is a short Markdown card plus the full JSON.
 
@@ -119,8 +119,10 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`property_profile`](docs/tools.md#property_profile) | Everything about a property in one card. |
 | [`lookup_property`](docs/tools.md#lookup_property) | Property type, building facts, parcel and location for an address. |
 | [`show_property_map`](docs/tools.md#show_property_map) | Map picture of the lot with nearby buildings, streets and zoning. |
+| [`show_property_photo`](docs/tools.md#show_property_photo) | Street photo of the property, or an aerial of the lot. |
 | [`census_for_area`](docs/tools.md#census_for_area) | Population, income, home value and rent for an area. |
 | [`zoning_for_property`](docs/tools.md#zoning_for_property) | Zoning district from the official map, with its rules where held. |
+| [`zoning_table_for_city`](docs/tools.md#zoning_table_for_city) | Zoning districts and their rules for a city. |
 | [`hazards_for_property`](docs/tools.md#hazards_for_property) | FEMA hazard ratings and EPA cleanup sites within a mile. |
 | [`nearby_for_property`](docs/tools.md#nearby_for_property) | Utilities, transport, energy, schools and EV charging nearby. |
 | [`site_screen_for_property`](docs/tools.md#site_screen_for_property) | Wetlands, protected areas, contamination and sewer service. |
@@ -132,6 +134,7 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`grid_demand_mix`](docs/tools.md#grid_demand_mix) | Hourly demand, forecast and fuel mix for a grid region. |
 | [`grid_interchange`](docs/tools.md#grid_interchange) | Hourly electricity flows between balancing authorities. |
 | [`coal_shipments`](docs/tools.md#coal_shipments) | Coal received at a plant by mine, or shipped from a mine. |
+| [`mineral_production`](docs/tools.md#mineral_production) | Mineral output and revenue from federal and tribal lands. |
 | [`lookup_facility`](docs/tools.md#lookup_facility) | A power plant, airport, port or hospital by name or ID. |
 | [`coverage_for_county`](docs/tools.md#coverage_for_county) | What L3R holds for a county. |
 | [`list_reference_data`](docs/tools.md#list_reference_data) | Ranked lists of seaports, risk tracts or power plants. |
@@ -139,6 +142,12 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`projects_for_property`](docs/tools.md#projects_for_property) | Planning cases, permits and development for an address or area. |
 | [`municipal_for_property`](docs/tools.md#municipal_for_property) | Who governs a property, who represents it, and who decides. |
 | [`affordable_for_place`](docs/tools.md#affordable_for_place) | Affordable housing for a city: sponsors, funding and pipeline. |
+| [`ordinances_for_place`](docs/tools.md#ordinances_for_place) | New ordinances, local laws and agency rules for SF and NYC. |
+| [`municipal_code_for_place`](docs/tools.md#municipal_code_for_place) | A city's code by words or section, with pending changes. |
+| [`developments_for_place`](docs/tools.md#developments_for_place) | New housing projects in SF and NYC by stage. |
+| [`land_use_changes_for_place`](docs/tools.md#land_use_changes_for_place) | Rezonings and landmark designations in SF and NYC. |
+| [`energy_benchmarking_for_property`](docs/tools.md#energy_benchmarking_for_property) | A building's energy and emissions against its peers. |
+| [`energy_benchmarking_for_place`](docs/tools.md#energy_benchmarking_for_place) | Energy benchmarking and Local Law 97 across NYC or SF. |
 
 All tools are read-only. Schemas and example responses are in the [tools reference](docs/tools.md).
 
