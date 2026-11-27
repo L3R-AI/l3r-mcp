@@ -101,7 +101,7 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 - **State electricity:** "What do homes in Maine pay for electricity?"
 - **Grid demand:** "What were ERCOT's demand and fuel mix over the last day?"
 - **Grid flows:** "How much power does the California ISO import from its neighbours?"
-- **Facility:** "Tell me about the Hoover Dam power plant."
+- **Facility:** "Tell me about the Hoover Dam power plant in Nevada."
 - **City records:** "What zoning hearings are coming up in Dallas, and who decides them?"
 - **Council:** "How did San Francisco's supervisors vote on recent housing items?"
 - **Affordable:** "Who are the biggest affordable housing developers in San Francisco?"
@@ -152,8 +152,9 @@ Code examples: [Python](examples/python/lookup.py), [TypeScript](examples/typesc
 | [`affordable_for_place`](docs/tools.md#affordable_for_place) | Affordable housing for a city: sponsors, funding and pipeline. |
 | [`ordinances_for_place`](docs/tools.md#ordinances_for_place) | New ordinances and local laws for SF, NYC and 10 more cities. |
 | [`municipal_code_for_place`](docs/tools.md#municipal_code_for_place) | Search the code of about 500 cities and counties. |
-| [`developments_for_place`](docs/tools.md#developments_for_place) | New housing projects in SF and NYC by stage. |
+| [`developments_for_place`](docs/tools.md#developments_for_place) | Citywide new housing projects by stage for SF and NYC; development in the other cities under City records is on property cards. |
 | [`land_use_changes_for_place`](docs/tools.md#land_use_changes_for_place) | Rezonings and landmark designations in SF and NYC. |
+| [`housing_programs_for_place`](docs/tools.md#housing_programs_for_place) | Housing incentive programs (421-a, J-51, HOME-SF, ...) and how the law changed them, for NYC and SF. |
 | [`energy_benchmarking_for_property`](docs/tools.md#energy_benchmarking_for_property) | A building's energy and emissions against its peers. |
 | [`energy_benchmarking_for_place`](docs/tools.md#energy_benchmarking_for_place) | Energy benchmarking and Local Law 97 across NYC or SF. |
 
@@ -181,7 +182,7 @@ This is L3R's public slice. Facts appear only where publishers allow, so a missi
 - **Ordinances:** San Francisco, New York City, Seattle, Denver, Boston, Oakland, Pittsburgh, Columbus, Cleveland, Corpus Christi, Round Rock and League City. Sponsors, votes and summaries for SF and NYC only.
 - **Rezonings and landmarks, energy benchmarking:** San Francisco and New York City for now.
 - **Local Law 97:** an estimate from reported benchmarking, not a DOB determination.
-- **Rate limit:** one address per call; 60 calls an hour and 300 a day from each network address.
+- **Rate limit:** one address per call; 60 tool calls an hour and 300 a day per session (per network address for a client without a session id), and 1,200 an hour from one network address in all. Listing tools is free. [Details](https://mcp.l3r.io/limits).
 
 </details>
 
@@ -237,7 +238,7 @@ This is L3R's public slice. Facts appear only where publishers allow, so a missi
 | Rezonings | San Francisco, New York City |
 | Landmarks | San Francisco, New York City |
 | Energy&nbsp;use | San Francisco, New York City |
-| Development | Aspen, Atlanta, Austin, Beverly Hills, Boston, Charlotte, Dallas, Denver, Fort Worth, Las Vegas, Los Angeles, Miami, Minneapolis, Nashville, New York City, Orlando, Philadelphia, Portland, San Antonio, San Diego, Seattle, Washington DC |
+| Development | On property cards and development areas: Aspen, Atlanta, Austin, Beverly Hills, Boston, Charlotte, Dallas, Denver, Fort Worth, Las Vegas, Los Angeles, Miami, Minneapolis, Nashville, New York City, Orlando, Philadelphia, Portland, San Antonio, San Diego, Seattle, Washington DC. Citywide lists by stage (`developments_for_place`): San Francisco, New York City |
 
 </details>
 

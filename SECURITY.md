@@ -12,5 +12,5 @@ Of particular interest:
 - a way past the rate limits or the one-input-per-call rule;
 - a way to reach data or systems other than the server's published tools.
 
-Please test only against your own calls, keep within the published limits (60 calls an hour per IP address), and do not attempt to
+Please test only against your own calls, keep within the published limits (see https://mcp.l3r.io/limits), and do not attempt to
 access other people's data or degrade the service.
