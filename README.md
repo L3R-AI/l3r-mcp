@@ -192,7 +192,7 @@ This is L3R's public slice. Facts appear only where publishers allow, so a missi
 | Multifamily building | Two units or more, from duplexes to large apartment buildings |
 | Condominium | Condo buildings and their units |
 | Mixed-use building | Homes and businesses in one building |
-| Manufactured or mobile home | Manufactured and mobile homes |
+| Manufactured | Manufactured and mobile homes |
 | Office building | Offices |
 | Retail property | Shops, restaurants, shopping centers |
 | Commercial property | Hotels, parking and other commercial uses |
