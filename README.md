@@ -1,5 +1,7 @@
 <h1 align="center"><img src="assets/l3r-icon.png" alt="" width="40" height="40" align="absmiddle"> L3R MCP Server</h1>
 
+<p align="center"><a href="https://lobehub.com/mcp/l3r-ai-l3r-mcp"><img src="https://lobehub.com/badge/mcp/l3r-ai-l3r-mcp" alt="MCP Badge"></a></p>
+
 <br>
 
 <p align="center">
