@@ -38,6 +38,7 @@ show as is, and the full answer as JSON in `structuredContent`. No tool calls a 
 | [`land_use_changes_for_place`](#land_use_changes_for_place) | Rezonings and landmark designations in a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`energy_benchmarking_for_property`](#energy_benchmarking_for_property) | Energy benchmarking and NYC Local Law 97 for a property | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 | [`energy_benchmarking_for_place`](#energy_benchmarking_for_place) | Energy benchmarking and NYC Local Law 97 across a city | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
+| [`housing_programs_for_place`](#housing_programs_for_place) | Housing incentive and exemption programs for a city, and how the law changed them | `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, `openWorldHint: false` |
 
 Every example below is real output from the live server at `https://mcp.l3r.io/mcp`, captured on 8 November 2026. The examples for `districts_for_property`, `energy_service_for_property` and `site_screen_for_property` were captured on 11 November 2026, as were those for `data_center_projects`, `energy_plant_history`, `electricity_state_profile`, `grid_demand_mix`, `grid_interchange` and `coal_shipments`. The examples for `coverage_for_county` and `list_reference_data` were captured on 12 November 2026. The cards for `lookup_property`, `zoning_for_property`, `property_profile` and `zoning_table_for_city` were captured on 17 November 2026. The examples for `mineral_production`, `ordinances_for_place`, `municipal_code_for_place`, `developments_for_place`, `land_use_changes_for_place` and both `energy_benchmarking` tools were captured on 25 November 2026. Each
 passed the server's own answer gates: a key allowlist at every depth, a guard against owner, holder and contact fields,
@@ -77,6 +78,7 @@ and a size cap. Nothing was edited by hand.
 - [`land_use_changes_for_place`](#land_use_changes_for_place)
 - [`energy_benchmarking_for_property`](#energy_benchmarking_for_property)
 - [`energy_benchmarking_for_place`](#energy_benchmarking_for_place)
+- [`housing_programs_for_place`](#housing_programs_for_place)
 - [Errors and refusals](#errors-and-refusals)
 
 ---
@@ -4382,6 +4384,32 @@ More: 3drights.com
 
 ---
 
+## `housing_programs_for_place`
+
+How a city's housing incentive and exemption programs work and how the law changed them. New York City: 421-a and Affordable New York, 485-x, J-51, ICAP/ICIP, 420-c, Mandatory and Voluntary Inclusionary Housing, the common-entrances rule that ended separate entrances, and City of Yes for Housing Opportunity. San Francisco: Planning Code 415 inclusionary housing, HOME-SF, the State Density Bonus, SB 35/SB 423 streamlining and the welfare exemption. Each program comes with its legal basis (the state section and the city code sections held, linked), what it allows and who is eligible in the law's own words, and its newest change. Give `program` for its full dated timeline: the state chapter laws, local laws, zoning text resolutions and ordinances that created, extended, expanded, narrowed, renamed, replaced or ended it. Each effect is quoted from the bill summary, sponsor's memo, Council summary, Legislative Digest or the law's title, with sponsors.
+
+### Input
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `place` | string | yes | One city with its state: 'New York, NY' or 'San Francisco, CA'. |
+| `state` | string | no | Two-letter state, e.g. NY. |
+| `program` | string | no | One program for its full timeline, e.g. '421-a', '485-x', 'J-51', 'MIH', 'HOME-SF', '415', 'density bonus'. |
+| `page` | integer | no | The timeline page, 1 first (with `program`). |
+
+### Limits
+
+- New York City and San Francisco.
+- No tax amounts, values or owners. Legislative records, not legal advice.
+
+### Example call
+
+```json
+{"name": "housing_programs_for_place", "arguments": {"place": "New York, NY", "program": "421-a"}}
+```
+
+---
+
 ## Errors and refusals
 
 | Case | What the client sees |
@@ -4417,12 +4445,4 @@ one address or identifier per call; lists are not accepted
 
 ```text
 with district, give city (e.g. 'Tulsa, OK')
-```
-
-```json
-{"name": "lookup_facility", "arguments": {"name": "Hoover Dam"}}
-```
-
-```text
-with name, give state (and city if known)
 ```
