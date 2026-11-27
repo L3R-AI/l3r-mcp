@@ -232,8 +232,9 @@ This is L3R's public slice. Facts appear only where publishers allow, so a missi
 | Permits | About 120 cities and counties, plus New Jersey statewide |
 | City&nbsp;hall | Austin, Baltimore, Boston, Chicago, Columbus, Dallas, Houston, Jacksonville, Los Angeles, Memphis, Miami, New York City, Oklahoma City, Philadelphia, Portland, San Diego, San Francisco, Seattle, 190+ smaller cities and towns |
 | Ordinances | San Francisco, New York City (with agency rules), Seattle, Denver, Boston, Oakland, Pittsburgh, Columbus, Cleveland, Corpus Christi, Round Rock and League City, read daily |
-| Rezonings&nbsp;and&nbsp;landmarks | San Francisco, New York City |
-| Energy&nbsp;benchmarking | San Francisco, New York City |
+| Rezonings | San Francisco, New York City |
+| Landmarks | San Francisco, New York City |
+| Energy&nbsp;use | San Francisco, New York City |
 | Development | Aspen, Atlanta, Austin, Beverly Hills, Boston, Charlotte, Dallas, Denver, Fort Worth, Las Vegas, Los Angeles, Miami, Minneapolis, Nashville, New York City, Orlando, Philadelphia, Portland, San Antonio, San Diego, Seattle, Washington DC |
 
 </details>
